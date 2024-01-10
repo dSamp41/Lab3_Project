@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+//split main in ClientMain to improve testability
 public class Client {
     private static final int PORT = 9999;
     
