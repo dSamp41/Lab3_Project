@@ -4,6 +4,11 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
+/*
+Used to serialize UserList and HotelList.
+It is called from the server every *x* times
+*/
+
 public class Persister implements Runnable {
     private Gson gson;
     private HotelList hotels;
@@ -29,7 +34,7 @@ public class Persister implements Runnable {
             hotelsWriter.write(hJ);
             hotelsWriter.flush();
         } 
-        catch (IOException e) {
+        catch(IOException e) {
             System.err.println(e.getMessage());
         }
 
