@@ -40,7 +40,7 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             ExecutorService pool = Executors.newCachedThreadPool();
 
-            //periodically persits users and hotels data 
+            //periodically persists users and hotels data 
             ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.schedule(new Persister(gson, hotels, users), DELAY, UNIT);
             

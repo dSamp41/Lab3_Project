@@ -25,6 +25,11 @@ public class Client {
                 toServer.println(userReq);
 
                 serverRsp = fromServer.readLine();
+                if(serverRsp == null){
+                    System.out.println("The server is down. Disconetting...");
+                    break;
+                }
+                
                 serverRsp = serverRsp.replace("^", "\n");
                 System.out.println("Server: " + serverRsp);
             }

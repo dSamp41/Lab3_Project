@@ -32,7 +32,9 @@ public class Hotel {
     }
 
     public String toString(){
-        return this.name + "\n " + this.description + "\n" + this.city + "\n" + this.services + "\n\n";
+        String serviziDisp = String.join(", ", this.services);
+
+        return this.name + "\n" + this.description + "\n" + "Servizi disponibili: " + serviziDisp + "\n\n";
     }
 
     public void insertReview(){}

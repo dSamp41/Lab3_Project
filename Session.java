@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Session implements Runnable {
     private Socket clientSocket;
@@ -160,14 +161,19 @@ public class Session implements Runnable {
 
         return "Logout successful";
     }
+
     private String searchAllHotels(String city){
         List<Hotel> hotelsInCity = hotels.searchByCity(city);
 
         if(hotelsInCity.size() == 0){
             return "No hotel found in " + city;
         }
-        //TODO: orber by ranking; fix string
-        return hotelsInCity.toString().replace("\n", "^");
+        //TODO: orber by ranking;
+        String foundHotels = hotelsInCity.stream()
+            .map(Hotel::toString)
+            .collect(Collectors.joining(""));
+        
+        return foundHotels.replace("\n", "^");
     }
 
     private String searchHotel(String name, String city){
@@ -183,6 +189,7 @@ public class Session implements Runnable {
         return users.searchByUsername(username).get(0).getBadge();
     }
 
+    //TODO: insertReview
     private String insertReview(String hotelName, String hotelCity, float globalRate, int[] ratings){
         return "";
     }
