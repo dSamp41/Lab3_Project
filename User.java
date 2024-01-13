@@ -23,6 +23,7 @@ public class User {
     private String username;
     private String pwdHash;
     private Badge badge;
+    private :: insertedReviews;
 
     public User(String u, String p){
         this.username = u;

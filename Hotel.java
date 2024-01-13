@@ -1,18 +1,14 @@
 import java.util.ArrayList;
 
 public class Hotel {
-    private class Ratings{
-        float cleaning, position, services, quality;
-    }
-
     private int id;
     private String name, description, city, phone;
     private ArrayList<String> services;
-    private int rate;
+    private float rate;
     private Ratings ratings;
     
     public Hotel(int id, String name, String description, String city, String phone, 
-    ArrayList<String> services, int rate, Ratings ratings){
+    ArrayList<String> services, float rate, Ratings ratings){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -23,13 +19,17 @@ public class Hotel {
         this.ratings = ratings;
     }
 
-    public String getCity(){
-        return this.city;
+    public String getCity() {return this.city;}
+
+    public String getName() {return this.name;}
+
+    public float getRate() {return this.rate;}
+
+    private void setRate(float r){
+        this.rate = r;
     }
 
-    public String getName(){
-        return this.name;
-    }
+    public Ratings getRatings() {return this.ratings;}
 
     public String toString(){
         String serviziDisp = String.join(", ", this.services);
@@ -37,14 +37,31 @@ public class Hotel {
         return this.name + "\n" + this.description + "\n" + "Servizi disponibili: " + serviziDisp + "\n\n";
     }
 
-    public void insertReview(){}
+    public void insertReview(float r, Ratings rtngs){
+        float newRate = EMA(this.rate, r);
+        setRate(newRate);
+
+        float newCleaning = EMA(ratings.getCleaning(), rtngs.getCleaning()); 
+        float newPosition = EMA(ratings.getPosition(), rtngs.getPosition());
+        float newServices = EMA(ratings.getServices(), rtngs.getPosition()); 
+        float newQuality = EMA(ratings.getQuality(), rtngs.getQuality());
+
+        Ratings newRatings = new Ratings(newCleaning, newPosition, newServices, newQuality);
+        this.ratings = newRatings;
+    }
     
     private float EMA(float oldVal, float newVal){
+        if(oldVal == 0){
+            return newVal;
+        }
+        
         float alpha = (float) 0.2;
         float res = (1-alpha) * oldVal + (alpha * newVal);
         
         return res;
     }
+
+    
 }
 
 

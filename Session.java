@@ -168,7 +168,7 @@ public class Session implements Runnable {
         if(hotelsInCity.size() == 0){
             return "No hotel found in " + city;
         }
-        //TODO: orber by ranking;
+        //TODO: orber by ranking; https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property
         String foundHotels = hotelsInCity.stream()
             .map(Hotel::toString)
             .collect(Collectors.joining(""));
@@ -191,6 +191,26 @@ public class Session implements Runnable {
 
     //TODO: insertReview
     private String insertReview(String hotelName, String hotelCity, float globalRate, int[] ratings){
+        if(!isLogged){
+            return "You must be logged in to insert a review";
+        }
+
+        //TODO: check if user already inserted a review for the same hotel less then REVIEW_DELTA_TIME ago. 
+        
+        //TODO: User.addReview()
+        
+        List<Hotel> searchedHotels = hotels.searchByName(hotelName, hotelCity);
+        if(searchedHotels.size() == 0){ 
+            return "Hotel not found. The name or city is wrong";
+        }
+
+        //Hotel.insertReview()
+        Hotel selectedHotel = searchedHotels.get(0);
+        Ratings r = new Ratings(ratings[0], ratings[1], ratings[2], ratings[3]);
+        selectedHotel.insertReview(globalRate, r);
+
+        
+
         return "";
     }
 }
