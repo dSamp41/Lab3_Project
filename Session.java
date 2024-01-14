@@ -3,21 +3,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Session implements Runnable {
+    private final long REVIEW_DELTA_DAYS;
+
     private Socket clientSocket;
     private HotelList hotels;
     private UserList users;
 
     private boolean isLogged = false;
     private String username = "";
+    private User currentUser;
 
-    public Session(Socket s, HotelList h, UserList u){
+    public Session(Socket s, HotelList h, UserList u, long delta){
         this.clientSocket = s;
         this.hotels = h;
         this.users = u;
+        this.REVIEW_DELTA_DAYS = delta;
     }
 
     public void run(){
@@ -70,6 +77,7 @@ public class Session implements Runnable {
                 }
 
                 break;
+
             case "logout":
                 if(input.length != 1){
                     out.println("Too much or too little args");
@@ -114,6 +122,24 @@ public class Session implements Runnable {
 
                 out.println(showBadge(username));
                 break;
+
+            case "insertReview":
+            //insertReview Hotel Roma 1 Roma 5 4 4 4 4
+                if(input.length != 9){
+                    out.println("Too much or too little args");
+                    break;
+                }
+
+                if(!isLogged){
+                    out.println("You must be logged in to insert a review");
+                }
+
+                String hotelName = input[0] + input[1] + input[2];
+                String hotelCity = input[3];
+                int globalRate = Integer.parseInt(input[4]);
+                int[] ratings = {Integer.parseInt(input[5]), Integer.parseInt(input[6]), Integer.parseInt(input[7]), Integer.parseInt(input[8])};
+
+                out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
         
             default:
                 out.println("Unknown command");
@@ -151,6 +177,8 @@ public class Session implements Runnable {
         else{
             this.isLogged = true;
             this.username = username;
+            this.currentUser = users.getByName(username);
+
             return "Logged in";
         }
     }
@@ -168,7 +196,7 @@ public class Session implements Runnable {
         if(hotelsInCity.size() == 0){
             return "No hotel found in " + city;
         }
-        //TODO: orber by ranking; https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property
+        //TODO: orber by ranking; https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-propertyf
         String foundHotels = hotelsInCity.stream()
             .map(Hotel::toString)
             .collect(Collectors.joining(""));
@@ -189,16 +217,23 @@ public class Session implements Runnable {
         return users.searchByUsername(username).get(0).getBadge();
     }
 
-    //TODO: insertReview
     private String insertReview(String hotelName, String hotelCity, float globalRate, int[] ratings){
-        if(!isLogged){
-            return "You must be logged in to insert a review";
-        }
+        
 
-        //TODO: check if user already inserted a review for the same hotel less then REVIEW_DELTA_TIME ago. 
-        
-        //TODO: User.addReview()
-        
+        //check if user already inserted a review for the same hotel less then REVIEW_DELTA_DAYS ago. 
+        Optional<LocalDate> lastReviewDate = currentUser.getLastReviewDate(hotelName);
+        if(lastReviewDate.isEmpty()){
+            currentUser.addReview(hotelName, LocalDate.now());
+        }
+        else{
+            LocalDate d = lastReviewDate.get();
+
+            if(ChronoUnit.DAYS.between(d, LocalDate.now()) < REVIEW_DELTA_DAYS){
+                return "You already inserted a recent review for this hotel.";
+            }
+            currentUser.addReview(hotelName, LocalDate.now());
+        }
+                
         List<Hotel> searchedHotels = hotels.searchByName(hotelName, hotelCity);
         if(searchedHotels.size() == 0){ 
             return "Hotel not found. The name or city is wrong";
@@ -209,8 +244,6 @@ public class Session implements Runnable {
         Ratings r = new Ratings(ratings[0], ratings[1], ratings[2], ratings[3]);
         selectedHotel.insertReview(globalRate, r);
 
-        
-
-        return "";
+        return "The review has been successfully inserted";
     }
 }

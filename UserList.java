@@ -28,4 +28,10 @@ public class UserList {
         return users.stream().filter(p).collect(Collectors.toList());
     }
 
+    public User getByName(String username) {
+        Predicate<User> p = u -> (u.getUsername().equals(username));
+        
+        return users.stream().filter(p).findFirst().get();
+    }
+
 }

@@ -1,5 +1,8 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Optional;
 
 enum Badge {
     A("Recensore"), 
@@ -23,7 +26,7 @@ public class User {
     private String username;
     private String pwdHash;
     private Badge badge;
-    private :: insertedReviews;
+    private HashMap<String, LocalDate> lastInsertedReviews; 
 
     public User(String u, String p){
         this.username = u;
@@ -60,6 +63,14 @@ public class User {
             System.err.println(e.getMessage());
             return null;
         }
+    }
+
+    public void addReview(String hotelName, LocalDate date){
+        lastInsertedReviews.put(hotelName, date);
+    }
+
+    public Optional<LocalDate> getLastReviewDate(String hotelName){
+        return Optional.ofNullable(lastInsertedReviews.get(hotelName));
     }
     
 }
