@@ -26,7 +26,7 @@ public class User {
     private String username;
     private String pwdHash;
     private Badge badge;
-    private HashMap<String, LocalDate> lastInsertedReviews; 
+    private HashMap<String, LocalDate> lastInsertedReviews;
 
     public User(String u, String p){
         this.username = u;
