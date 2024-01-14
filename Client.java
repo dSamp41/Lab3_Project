@@ -17,7 +17,7 @@ public class Client {
         ){
             String serverRsp, userReq;
 
-            System.out.println("Welcome, these are your actions: register, login, searchAllHotels, searchHotel, showBadge, logout");
+            System.out.println("Welcome, these are your actions: register, login, searchAllHotels, searchHotel, showBadge, logout, insertReview");
 
             while(true){
                 System.out.println("\nInsert text: ");

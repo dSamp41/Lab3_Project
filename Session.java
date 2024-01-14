@@ -125,7 +125,7 @@ public class Session implements Runnable {
 
             case "insertReview":
             //insertReview Hotel Roma 1 Roma 5 4 4 4 4
-                if(input.length != 9){
+                if(input.length != 10){
                     out.println("Too much or too little args");
                     break;
                 }
@@ -134,10 +134,10 @@ public class Session implements Runnable {
                     out.println("You must be logged in to insert a review");
                 }
 
-                String hotelName = input[0] + input[1] + input[2];
-                String hotelCity = input[3];
-                int globalRate = Integer.parseInt(input[4]);
-                int[] ratings = {Integer.parseInt(input[5]), Integer.parseInt(input[6]), Integer.parseInt(input[7]), Integer.parseInt(input[8])};
+                String hotelName = input[1] + " " + input[2] + " " + input[3];
+                String hotelCity = input[4];
+                int globalRate = Integer.parseInt(input[5]);
+                int[] ratings = {Integer.parseInt(input[6]), Integer.parseInt(input[7]), Integer.parseInt(input[8]), Integer.parseInt(input[8])};
 
                 out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
         
@@ -156,7 +156,6 @@ public class Session implements Runnable {
         else{
             users.add(new User(username, pwdHash));
             return "Registration was successful";
-
         }
     }
 
@@ -219,7 +218,6 @@ public class Session implements Runnable {
 
     private String insertReview(String hotelName, String hotelCity, float globalRate, int[] ratings){
         
-
         //check if user already inserted a review for the same hotel less then REVIEW_DELTA_DAYS ago. 
         Optional<LocalDate> lastReviewDate = currentUser.getLastReviewDate(hotelName);
         if(lastReviewDate.isEmpty()){
@@ -236,7 +234,7 @@ public class Session implements Runnable {
                 
         List<Hotel> searchedHotels = hotels.searchByName(hotelName, hotelCity);
         if(searchedHotels.size() == 0){ 
-            return "Hotel not found. The name or city is wrong";
+            return String.format("Hotel not found. The name <%s> or city <%s> is wrong", hotelName, hotelCity);
         }
 
         //Hotel.insertReview()

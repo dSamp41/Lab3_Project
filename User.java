@@ -32,6 +32,7 @@ public class User {
         this.username = u;
         this.pwdHash = p;
         this.badge = Badge.A;
+        this.lastInsertedReviews = new HashMap<>();
     }
 
     public String getUsername(){
@@ -73,4 +74,5 @@ public class User {
         return Optional.ofNullable(lastInsertedReviews.get(hotelName));
     }
     
+    //TODO: updateBadge
 }

@@ -10,12 +10,12 @@
       "Palestra",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 5.0,
     "ratings": {
-      "cleaning": 0.0,
-      "position": 0.0,
-      "services": 0.0,
-      "quality": 0.0
+      "cleaning": 4.0,
+      "position": 4.0,
+      "services": 4.0,
+      "quality": 4.0
     }
   },
   {
@@ -32,7 +32,7 @@
       "Frigo in camera",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -47,7 +47,7 @@
     "city": "Aosta",
     "phone": "393-2959804",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -62,7 +62,7 @@
     "city": "Aosta",
     "phone": "392-3923265",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -86,7 +86,7 @@
       "TV in camera",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -101,7 +101,7 @@
     "city": "Aosta",
     "phone": "363-4167789",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -121,7 +121,7 @@
       "Palestra",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -142,7 +142,7 @@
       "TV in camera",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -157,7 +157,7 @@
     "city": "Aosta",
     "phone": "355-6261636",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -176,7 +176,7 @@
       "Cancellazione gratuita",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -199,7 +199,7 @@
       "Wi-Fi",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -222,7 +222,7 @@
       "Piscina",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -241,7 +241,7 @@
       "Servizio in camera",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -261,7 +261,7 @@
       "TV in camera",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -284,7 +284,7 @@
       "Posto auto",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -304,7 +304,7 @@
       "Piscina",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -329,7 +329,7 @@
       "Palestra",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -347,7 +347,7 @@
       "TV in camera",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -362,7 +362,7 @@
     "city": "Torino",
     "phone": "334-2052889",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -377,7 +377,7 @@
     "city": "Torino",
     "phone": "382-4893459",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -401,7 +401,7 @@
       "Posto auto",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -423,7 +423,7 @@
       "Sauna",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -440,7 +440,7 @@
     "services": [
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -465,7 +465,7 @@
       "Posto auto",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -483,7 +483,7 @@
       "TV in camera",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -506,7 +506,7 @@
       "Servizio in camera",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -521,7 +521,7 @@
     "city": "Genova",
     "phone": "375-7436203",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -546,7 +546,7 @@
       "TV in camera",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -566,7 +566,7 @@
       "Piscina",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -581,7 +581,7 @@
     "city": "Genova",
     "phone": "343-6958486",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -605,7 +605,7 @@
       "Servizio in camera",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -623,7 +623,7 @@
       "Palestra",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -648,7 +648,7 @@
       "Posto auto",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -671,7 +671,7 @@
       "Servizio in camera",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -692,7 +692,7 @@
       "Paga in struttura",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -709,7 +709,7 @@
     "services": [
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -734,7 +734,7 @@
       "Posto auto",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -751,7 +751,7 @@
     "services": [
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -774,7 +774,7 @@
       "Piscina",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -789,7 +789,7 @@
     "city": "Milano",
     "phone": "320-4042951",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -812,7 +812,7 @@
       "Cancellazione gratuita",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -829,7 +829,7 @@
     "services": [
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -854,7 +854,7 @@
       "TV in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -869,7 +869,7 @@
     "city": "Trento",
     "phone": "395-6577287",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -891,7 +891,7 @@
       "Frigo in camera",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -906,7 +906,7 @@
     "city": "Trento",
     "phone": "367-7841594",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -931,7 +931,7 @@
       "TV in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -954,7 +954,7 @@
       "Paga in struttura",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -979,7 +979,7 @@
       "Servizio in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1003,7 +1003,7 @@
       "Servizio in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1023,7 +1023,7 @@
       "Piscina",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1038,7 +1038,7 @@
     "city": "Venezia",
     "phone": "337-1365356",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1059,7 +1059,7 @@
       "Wi-Fi",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1083,7 +1083,7 @@
       "Sauna",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1104,7 +1104,7 @@
       "Cancellazione gratuita",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1126,7 +1126,7 @@
       "TV in camera",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1149,7 +1149,7 @@
       "Paga in struttura",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1166,7 +1166,7 @@
     "services": [
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1186,7 +1186,7 @@
       "Sauna",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1209,7 +1209,7 @@
       "Sauna",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1224,7 +1224,7 @@
     "city": "Udine",
     "phone": "328-3594856",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1247,7 +1247,7 @@
       "Sauna",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1264,7 +1264,7 @@
     "services": [
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1284,7 +1284,7 @@
       "Cancellazione gratuita",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1302,7 +1302,7 @@
       "Frigo in camera",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1322,7 +1322,7 @@
       "Palestra",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1337,7 +1337,7 @@
     "city": "Udine",
     "phone": "387-8334625",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1361,7 +1361,7 @@
       "Paga in struttura",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1380,7 +1380,7 @@
       "Paga in struttura",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1403,7 +1403,7 @@
       "Paga in struttura",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1427,7 +1427,7 @@
       "Palestra",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1442,7 +1442,7 @@
     "city": "Reggio-Emilia",
     "phone": "376-6994764",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1462,7 +1462,7 @@
       "Cancellazione gratuita",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1482,7 +1482,7 @@
       "Paga in struttura",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1499,7 +1499,7 @@
     "services": [
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1520,7 +1520,7 @@
       "Cancellazione gratuita",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1543,7 +1543,7 @@
       "Posto auto",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1564,7 +1564,7 @@
       "Cancellazione gratuita",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1587,7 +1587,7 @@
       "Palestra",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1609,7 +1609,7 @@
       "Posto auto",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1628,7 +1628,7 @@
       "Piscina",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1643,7 +1643,7 @@
     "city": "Firenze",
     "phone": "339-6787075",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1663,7 +1663,7 @@
       "TV in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1678,7 +1678,7 @@
     "city": "Firenze",
     "phone": "330-7174828",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1695,7 +1695,7 @@
     "services": [
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1714,7 +1714,7 @@
       "Piscina",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1732,7 +1732,7 @@
       "Servizio in camera",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1755,7 +1755,7 @@
       "TV in camera",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1778,7 +1778,7 @@
       "Frigo in camera",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1800,7 +1800,7 @@
       "Servizio in camera",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1823,7 +1823,7 @@
       "Servizio in camera",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1842,7 +1842,7 @@
       "Piscina",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1867,7 +1867,7 @@
       "Servizio in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1882,7 +1882,7 @@
     "city": "Perugia",
     "phone": "341-9302350",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1907,7 +1907,7 @@
       "Cancellazione gratuita",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1929,7 +1929,7 @@
       "Wi-Fi",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1954,7 +1954,7 @@
       "Servizio in camera",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1974,7 +1974,7 @@
       "Posto auto",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -1991,7 +1991,7 @@
     "services": [
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2014,7 +2014,7 @@
       "Frigo in camera",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2036,7 +2036,7 @@
       "Paga in struttura",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2061,7 +2061,7 @@
       "Frigo in camera",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2082,7 +2082,7 @@
       "Frigo in camera",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2100,7 +2100,7 @@
       "Cancellazione gratuita",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2122,7 +2122,7 @@
       "Piscina",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2141,7 +2141,7 @@
       "Servizio in camera",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2160,7 +2160,7 @@
       "Wi-Fi",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2175,7 +2175,7 @@
     "city": "Ancona",
     "phone": "359-3864949",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2200,7 +2200,7 @@
       "Sauna",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2224,7 +2224,7 @@
       "TV in camera",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2241,7 +2241,7 @@
     "services": [
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2260,7 +2260,7 @@
       "Frigo in camera",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2275,7 +2275,7 @@
     "city": "Roma",
     "phone": "332-1286644",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2297,7 +2297,7 @@
       "TV in camera",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2317,7 +2317,7 @@
       "Cancellazione gratuita",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2336,7 +2336,7 @@
       "TV in camera",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2351,7 +2351,7 @@
     "city": "Roma",
     "phone": "369-4805335",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2376,7 +2376,7 @@
       "Wi-Fi",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2391,7 +2391,7 @@
     "city": "Roma",
     "phone": "396-3273550",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2411,7 +2411,7 @@
       "Cancellazione gratuita",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2431,7 +2431,7 @@
       "TV in camera",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2452,7 +2452,7 @@
       "Piscina",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2476,7 +2476,7 @@
       "Palestra",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2491,7 +2491,7 @@
     "city": "L\u0027Aquila",
     "phone": "312-5216383",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2513,7 +2513,7 @@
       "Piscina",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2538,7 +2538,7 @@
       "Palestra",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2563,7 +2563,7 @@
       "Palestra",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2584,7 +2584,7 @@
       "Paga in struttura",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2605,7 +2605,7 @@
       "Sauna",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2623,7 +2623,7 @@
       "Palestra",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2642,7 +2642,7 @@
       "Piscina",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2663,7 +2663,7 @@
       "Sauna",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2684,7 +2684,7 @@
       "Cancellazione gratuita",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2704,7 +2704,7 @@
       "Piscina",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2727,7 +2727,7 @@
       "Palestra",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2748,7 +2748,7 @@
       "Frigo in camera",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2766,7 +2766,7 @@
       "Sauna",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2791,7 +2791,7 @@
       "Posto auto",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2815,7 +2815,7 @@
       "TV in camera",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2838,7 +2838,7 @@
       "Piscina",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2858,7 +2858,7 @@
       "Paga in struttura",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2883,7 +2883,7 @@
       "Wi-Fi",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2906,7 +2906,7 @@
       "Sauna",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2926,7 +2926,7 @@
       "Sauna",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2945,7 +2945,7 @@
       "Servizio in camera",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2966,7 +2966,7 @@
       "Posto auto",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -2985,7 +2985,7 @@
       "TV in camera",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3010,7 +3010,7 @@
       "Sauna",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3033,7 +3033,7 @@
       "TV in camera",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3048,7 +3048,7 @@
     "city": "Napoli",
     "phone": "333-3913769",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3065,7 +3065,7 @@
     "services": [
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3087,7 +3087,7 @@
       "Sauna",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3111,7 +3111,7 @@
       "Wi-Fi",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3133,7 +3133,7 @@
       "TV in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3153,7 +3153,7 @@
       "Wi-Fi",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3174,7 +3174,7 @@
       "Sauna",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3191,7 +3191,7 @@
     "services": [
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3216,7 +3216,7 @@
       "Frigo in camera",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3240,7 +3240,7 @@
       "Paga in struttura",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3261,7 +3261,7 @@
       "Servizio in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3286,7 +3286,7 @@
       "Paga in struttura",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3308,7 +3308,7 @@
       "Wi-Fi",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3326,7 +3326,7 @@
       "Posto auto",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3347,7 +3347,7 @@
       "Palestra",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3364,7 +3364,7 @@
     "services": [
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3379,7 +3379,7 @@
     "city": "Potenza",
     "phone": "354-9008946",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3402,7 +3402,7 @@
       "Piscina",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3420,7 +3420,7 @@
       "Frigo in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3438,7 +3438,7 @@
       "Sauna",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3453,7 +3453,7 @@
     "city": "Potenza",
     "phone": "380-3671849",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3476,7 +3476,7 @@
       "Paga in struttura",
       "Wi-Fi"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3500,7 +3500,7 @@
       "Paga in struttura",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3518,7 +3518,7 @@
       "Frigo in camera",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3540,7 +3540,7 @@
       "Frigo in camera",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3557,7 +3557,7 @@
     "services": [
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3579,7 +3579,7 @@
       "Cancellazione gratuita",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3594,7 +3594,7 @@
     "city": "Reggio-Calabria",
     "phone": "368-1712796",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3615,7 +3615,7 @@
       "Piscina",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3633,7 +3633,7 @@
       "TV in camera",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3655,7 +3655,7 @@
       "Palestra",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3679,7 +3679,7 @@
       "Servizio in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3702,7 +3702,7 @@
       "Cancellazione gratuita",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3723,7 +3723,7 @@
       "Servizio in camera",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3740,7 +3740,7 @@
     "services": [
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3762,7 +3762,7 @@
       "Cancellazione gratuita",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3777,7 +3777,7 @@
     "city": "Palermo",
     "phone": "368-4561552",
     "services": [],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3796,7 +3796,7 @@
       "Cancellazione gratuita",
       "Paga in struttura"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3815,7 +3815,7 @@
       "Wi-Fi",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3839,7 +3839,7 @@
       "Paga in struttura",
       "Servizio in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3858,7 +3858,7 @@
       "Cancellazione gratuita",
       "Piscina"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3879,7 +3879,7 @@
       "Servizio in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3897,7 +3897,7 @@
       "Sauna",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3918,7 +3918,7 @@
       "Palestra",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3936,7 +3936,7 @@
       "TV in camera",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3958,7 +3958,7 @@
       "Frigo in camera",
       "Cancellazione gratuita"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -3978,7 +3978,7 @@
       "Posto auto",
       "TV in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -4003,7 +4003,7 @@
       "Piscina",
       "Posto auto"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -4021,7 +4021,7 @@
       "Cancellazione gratuita",
       "Palestra"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -4041,7 +4041,7 @@
       "Cancellazione gratuita",
       "Frigo in camera"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,
@@ -4063,7 +4063,7 @@
       "Frigo in camera",
       "Sauna"
     ],
-    "rate": 0,
+    "rate": 0.0,
     "ratings": {
       "cleaning": 0.0,
       "position": 0.0,

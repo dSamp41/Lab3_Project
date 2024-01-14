@@ -33,5 +33,14 @@ public class HotelList {
         
         return hotels.stream().filter(p).collect(Collectors.toList());
     }
+
+    //TODO: sorting
+    /*
+     * city
+     * rate
+     * ratings (avg?)
+     * num of services
+     * name
+     */
     
 }
