@@ -58,23 +58,26 @@ public class Session implements Runnable {
             case "register":
                 if(input.length != 3){
                     out.println("Too much or too little args");
+                    break;
                 }
-                else{
-                    String pwHash = User.getMD5Hash(input[2]);
-                    String registrationStatus = register(input[1], pwHash);
-                    out.println(registrationStatus);
-                }
+                
+                String pwHash = User.getMD5Hash(input[2]);
+                String registrationStatus = register(input[1], pwHash);
+                out.println(registrationStatus);
+                
                 break;
 
             case "login":
                 if(input.length != 3){
                     out.println("Too much or too little args");
+                    break;
                 }
-                else{
-                    String pwHash = User.getMD5Hash(input[2]);
-                    String loginStatus = login(input[1], pwHash);
-                    out.println(loginStatus);
-                }
+                
+                String pwHash = User.getMD5Hash(input[2]);
+                String loginStatus = login(input[1], pwHash);
+                out.println(loginStatus);
+
+                //TODO: set Multicast
 
                 break;
 
@@ -87,27 +90,28 @@ public class Session implements Runnable {
                     out.println("Not logged in");
                     break;
                 }
+
                 logout();
                 break;
                 
             case "searchAllHotels":
                 if(input.length != 2){
                     out.println("Too much or too little args");
-                }
-                else{
-                    out.println(searchAllHotels(input[1]));
+                    break;
                 }
                 
+                out.println(searchAllHotels(input[1]));
                 break;
+
             case "searchHotel":
                 if(input.length != 5){
                     out.println("Too much or too little args");
-                }
-                else{
-                    String name = input[1] + " " + input[2] + " " + input[3];
-                    out.println(searchHotel(name, input[4]));
-                }
-
+                    break;
+                }                
+                
+                String name = input[1] + " " + input[2] + " " + input[3];
+                out.println(searchHotel(name, input[4]));
+                
                 break;
             
             case "showBadge":

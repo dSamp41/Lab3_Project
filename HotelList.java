@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -34,13 +36,26 @@ public class HotelList {
         return hotels.stream().filter(p).collect(Collectors.toList());
     }
 
-    //TODO: sorting
-    /*
-     * city
-     * rate
-     * ratings (avg?)
-     * num of services
-     * name
-     */
+    public void sort(){
+        //Sorting
+        /*
+        * city (incr)
+        * rate (decr)
+        * avg ratings (decr)
+        * num of services (decr)
+        * name (incr)
+        */
+
+        Comparator<Hotel> hotelComparator = Comparator
+            .comparing(Hotel::getCity)
+            .thenComparing(Hotel::getRate).reversed()
+            .thenComparing(Hotel::getRatingsAvg).reversed()
+            .thenComparing(Hotel::getNumServices).reversed()
+            .thenComparing(Hotel::getName);
+        
+        Collections.sort(this.hotels, hotelComparator);
+    }
+
+    
     
 }

@@ -13,6 +13,10 @@ public class Ratings{
     public float getServices(){return this.services;}
     public float getQuality(){return this.quality;}
 
+    public float getRatingsAvg() {
+        return (cleaning + position + services + quality) / 4;
+    }
+
     public void setCleaning(float c){this.cleaning = c;}
     public void setPosition(float p){this.position = p;}
     public void setServices(float s){this.services = s;}

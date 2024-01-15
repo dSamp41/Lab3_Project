@@ -20,8 +20,8 @@ public class Hotel {
     }
 
     public String getCity() {return this.city;}
-
     public String getName() {return this.name;}
+    public int getNumServices() {return this.services.size();}
 
     public float getRate() {return this.rate;}
 
@@ -30,6 +30,10 @@ public class Hotel {
     }
 
     public Ratings getRatings() {return this.ratings;}
+
+    public float getRatingsAvg(){
+        return this.ratings.getRatingsAvg();
+    }
 
     public String toString(){
         String serviziDisp = String.join(", ", this.services);
@@ -59,9 +63,7 @@ public class Hotel {
         float res = (1-alpha) * oldVal + (alpha * newVal);
         
         return res;
-    }
-
-    
+    }    
 }
 
 

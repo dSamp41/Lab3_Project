@@ -69,7 +69,7 @@ public class Server {
         }
 
         //server
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+        try(ServerSocket serverSocket = new ServerSocket(PORT)) {
             ExecutorService pool = Executors.newCachedThreadPool();
 
             //periodically persists users and hotels data 

@@ -20,7 +20,8 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 public class HotelTest {
-    private Hotel h;
+    private Hotel h0, h1;
+
     @Before
     public void setup(){
         ArrayList<String> services = new ArrayList<>();
@@ -30,19 +31,30 @@ public class HotelTest {
 
         Ratings ratings = new Ratings(0, 0, 0, 0);
         
-        h = new Hotel(1, "Hotel Test 1", "TestDescription", "TestCity", "347-4453634", services, 0, ratings);
+        h0 = new Hotel(1, "Hotel Test 0", "TestDescription", "TestCity", "347-4453634", services, 0, ratings);
+
+
+        ArrayList<String> services1 = new ArrayList<>();
+        services1.add("TV in camera");
+        services1.add("Palestra");
+        services1.add("Cancellazione gratuita");
+
+        Ratings ratings1 = new Ratings(0, 0, 0, 0);
+        
+        h1 = new Hotel(1, "Hotel Test 1", "TestDescription1", "TestCity", "347-4453634", services1, 0, ratings1);
+
     }
 
     @Test
     public void insertReviewTest(){
 
-        h.insertReview(5, new Ratings(5, 5, 5, 5));
-        assertEquals(5, h.getRate(), 0.01);
-        assertEquals(5, h.getRatings().getCleaning(), 0.01);
+        h0.insertReview(5, new Ratings(5, 5, 5, 5));
+        assertEquals(5, h0.getRate(), 0.01);
+        assertEquals(5, h0.getRatings().getCleaning(), 0.01);
 
-        h.insertReview(1, new Ratings(1, 1, 1, 1));
-        assertEquals(4.2, h.getRate(), 0.01);
-        assertEquals(4.2, h.getRatings().getCleaning(), 0.01);
+        h0.insertReview(1, new Ratings(1, 1, 1, 1));
+        assertEquals(4.2, h0.getRate(), 0.01);
+        assertEquals(4.2, h0.getRatings().getCleaning(), 0.01);
 
     }
 
@@ -97,6 +109,19 @@ public class HotelTest {
 
         assertEquals(result, userJSON);
     }
-    
+
+    @Test
+    public void hotelListSortingTest(){
+        
+        HotelList hotelList = new HotelList();
+        hotelList.add(h0);
+        hotelList.add(h1);
+        
+        h0.insertReview(5, new Ratings(5, 5, 5, 5));
+        h1.insertReview(5, new Ratings(5, 5, 5, 5));
+        
+        hotelList.sort();
+        assertEquals(h0, hotelList.getHotels().getFirst());
+    }
 }
   
