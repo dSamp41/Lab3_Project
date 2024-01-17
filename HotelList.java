@@ -36,6 +36,36 @@ public class HotelList {
         return hotels.stream().filter(p).collect(Collectors.toList());
     }
 
+
+    public ArrayList<Hotel> getFirstRanked(){
+        ArrayList<Hotel> res = new ArrayList<>();
+        ArrayList<Hotel> sortedHotels = getSorted();
+
+        while(!sortedHotels.isEmpty()){
+            Hotel toAdd = sortedHotels.get(0);
+            res.add(toAdd);
+
+            Predicate<Hotel> p = h -> (h.getCity().equals(toAdd.getCity()));
+            sortedHotels.removeIf(p);
+        }
+
+        return res;
+    }
+
+    //sort and returns clone of this.hotels
+    public ArrayList<Hotel> getSorted(){
+        Comparator<Hotel> hotelComparator = Comparator
+            .comparing(Hotel::getCity)
+            .thenComparing(Hotel::getRate)
+            .thenComparing(Hotel::getRatingsAvg).reversed()
+            .thenComparing(Hotel::getNumServices).reversed()
+            .thenComparing(Hotel::getName);
+
+        ArrayList<Hotel> clonedHotels = new ArrayList<Hotel>(this.hotels);
+        Collections.sort(clonedHotels, hotelComparator);
+        return clonedHotels;
+    }
+
     public void sort(){
         //Sorting
         /*
@@ -48,7 +78,7 @@ public class HotelList {
 
         Comparator<Hotel> hotelComparator = Comparator
             .comparing(Hotel::getCity)
-            .thenComparing(Hotel::getRate).reversed()
+            .thenComparing(Hotel::getRate)
             .thenComparing(Hotel::getRatingsAvg).reversed()
             .thenComparing(Hotel::getNumServices).reversed()
             .thenComparing(Hotel::getName);

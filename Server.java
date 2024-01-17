@@ -12,6 +12,7 @@ import com.google.gson.reflect.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +29,8 @@ public class Server {
     private static final TimeUnit UNIT = TimeUnit.MINUTES;
 
     private static final long REVIEW_DELTA_DAYS = 10;
-    private static String groupAddress = "277.227.227.227";
+    private static String GROUP_ADDRESS = "227.227.227.227";
+    private static int MS_PORT = 7777;
     
     private static Type hotelArrayType = new TypeToken<ArrayList<Hotel>>(){}.getType();
     private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
@@ -56,6 +58,7 @@ public class Server {
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .create();
 
+        //Setup hotels and users lists
         HotelList hotels = new HotelList();
         UserList users = new UserList();
 
@@ -69,8 +72,10 @@ public class Server {
             System.err.println(e.getMessage());
         }
 
-        //server
-        try(ServerSocket serverSocket = new ServerSocket(PORT)) {
+        //Starting the server
+        try(ServerSocket serverSocket = new ServerSocket(PORT);
+            DatagramSocket msSocket = new DatagramSocket();
+        ){
             ExecutorService pool = Executors.newCachedThreadPool();
 
             //periodically persists users and hotels data 
@@ -79,8 +84,12 @@ public class Server {
             
             System.out.println("Server is running...");
 
+            //This thread sort HotelList and send a notification to multicast group 
+            Thread packetSend = new Thread(new PacketSend(GROUP_ADDRESS, MS_PORT));     //TODO: add HotelList and DELTA_SORTING_TIME
+            packetSend.start();
+
             while(true){
-                pool.execute(new Session(serverSocket.accept(), hotels, users, REVIEW_DELTA_DAYS, groupAddress));
+                pool.execute(new Session(serverSocket.accept(), hotels, users, REVIEW_DELTA_DAYS, GROUP_ADDRESS, MS_PORT));
             }
         } 
         catch(IOException e) {
