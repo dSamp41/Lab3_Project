@@ -28,6 +28,7 @@ public class Server {
     private static final TimeUnit UNIT = TimeUnit.MINUTES;
 
     private static final long REVIEW_DELTA_DAYS = 10;
+    private static String groupAddress = "277.227.227.227";
     
     private static Type hotelArrayType = new TypeToken<ArrayList<Hotel>>(){}.getType();
     private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
@@ -79,7 +80,7 @@ public class Server {
             System.out.println("Server is running...");
 
             while(true){
-                pool.execute(new Session(serverSocket.accept(), hotels, users, REVIEW_DELTA_DAYS));
+                pool.execute(new Session(serverSocket.accept(), hotels, users, REVIEW_DELTA_DAYS, groupAddress));
             }
         } 
         catch(IOException e) {
