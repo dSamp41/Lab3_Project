@@ -60,7 +60,7 @@ public class Session implements Runnable {
                     out.println("Too much or too little args");
                     break;
                 }
-                
+
                 String pwHash = User.getMD5Hash(input[2]);
                 String registrationStatus = register(input[1], pwHash);
                 out.println(registrationStatus);
@@ -73,11 +73,11 @@ public class Session implements Runnable {
                     break;
                 }
                 
-                String pwHash = User.getMD5Hash(input[2]);
-                String loginStatus = login(input[1], pwHash);
+                String pw_hash = User.getMD5Hash(input[2]);
+                String loginStatus = login(input[1], pw_hash);
                 out.println(loginStatus);
 
-                //TODO: set Multicast
+                //TODO: set Multicast group
 
                 break;
 
@@ -90,6 +90,9 @@ public class Session implements Runnable {
                     out.println("Not logged in");
                     break;
                 }
+
+                //TODO: leave Multicast group
+
 
                 logout();
                 break;

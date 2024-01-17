@@ -38,7 +38,5 @@ public class Client {
             System.err.println(e.getMessage());;
         }
         
-    }
-
-    
+    }    
 }
