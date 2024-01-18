@@ -15,7 +15,7 @@ public class Client {
             BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter toServer = new PrintWriter(socket.getOutputStream(), true);
         ){
-            String serverRsp, msMsg, userReq;
+            String serverRsp, userReq;
 
             System.out.println("Welcome, these are your actions: register, login, searchAllHotels, searchHotel, showBadge, logout, insertReview");
 
@@ -32,20 +32,10 @@ public class Client {
                 
                 serverRsp = serverRsp.replace("^", "\n");
                 System.out.println("Server: " + serverRsp);
-                if(serverRsp.equals("Logout successful")){  //TODO: fix client logout closing phase 
-                    break;
-                }
-
-                msMsg = fromServer.readLine();
-                if(msMsg != null){
-                    System.out.println(msMsg);
-                }
-
-
             }
         }
         catch(IOException e){
-            System.err.println(e.getMessage());
+            System.err.println(e.getMessage());;
         }
         
     }    

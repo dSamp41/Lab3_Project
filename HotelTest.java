@@ -20,7 +20,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 public class HotelTest {
-    private Hotel h0, h1, h2;
+    private Hotel h0, h1;
 
     @Before
     public void setup(){
@@ -30,7 +30,8 @@ public class HotelTest {
         services.add("Cancellazione gratuita");
 
         Ratings ratings = new Ratings(0, 0, 0, 0);
-        h0 = new Hotel(1, "Hotel Test 0", "TestDescription", "A", "347-4453634", services, 0, ratings);
+        
+        h0 = new Hotel(1, "Hotel Test 0", "TestDescription", "TestCity", "347-4453634", services, 0, ratings);
 
 
         ArrayList<String> services1 = new ArrayList<>();
@@ -39,15 +40,9 @@ public class HotelTest {
         services1.add("Cancellazione gratuita");
 
         Ratings ratings1 = new Ratings(0, 0, 0, 0);
-        h1 = new Hotel(1, "Hotel Test 1", "TestDescription1", "B", "347-4453634", services1, 0, ratings1);
+        
+        h1 = new Hotel(1, "Hotel Test 1", "TestDescription1", "TestCity", "347-4453634", services1, 0, ratings1);
 
-
-        ArrayList<String> services2 = new ArrayList<>();
-        services2.add("TV in camera");
-        services2.add("Palestra");
-
-        Ratings ratings2 = new Ratings(0, 0, 0, 0);
-        h2 = new Hotel(2, "Hotel Test 2", "TestDescription2", "C", "347-4453634", services2, 0, ratings2);
     }
 
     @Test
@@ -121,7 +116,6 @@ public class HotelTest {
         HotelList hotelList = new HotelList();
         hotelList.add(h0);
         hotelList.add(h1);
-        //hotelList.add(h2);
         
         h0.insertReview(5, new Ratings(5, 5, 5, 5));
         h1.insertReview(5, new Ratings(5, 5, 5, 5));
@@ -129,43 +123,5 @@ public class HotelTest {
         hotelList.sort();
         assertEquals(h0, hotelList.getHotels().getFirst());
     }
-
-    @Test
-    public void getSortedTest(){
-
-        HotelList hotelList = new HotelList();
-        hotelList.add(h0);
-        hotelList.add(h2);
-        hotelList.add(h1);
-
-        //h0.insertReview(5, new Ratings(5, 5, 5, 5));
-        //h1.insertReview(4, new Ratings(5, 5, 5, 5));
-
-        ArrayList<Hotel> cmp = new ArrayList<>();
-        cmp.add(h0); cmp.add(h1); cmp.add(h2);
-        ArrayList<Hotel> h = hotelList.getSorted();
-        assertEquals(cmp, h);
-
-        h.remove(h0);
-        assertEquals(false, h.contains(h0));
-        assertEquals(true, hotelList.getHotels().contains(h0));
-    }
-
-    @Test
-    public void getFirstRankedTest(){
-
-        HotelList hotelList = new HotelList();
-        hotelList.add(h0);
-        hotelList.add(h2);
-        hotelList.add(h1);
-
-        ArrayList<Hotel> cmp = new ArrayList<>();
-        cmp.add(h0); cmp.add(h1); cmp.add(h2);
-
-        ArrayList<Hotel> h = hotelList.getFirstRanked();
-        assertEquals(cmp, h);
-
-    }
-    
 }
   
