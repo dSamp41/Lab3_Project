@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -22,15 +20,11 @@ public class Session implements Runnable {
     private String username = "";
     private User currentUser;
 
-    private String groupAddress;
-    private MulticastSocket ms;
-
-    public Session(Socket s, HotelList h, UserList u, long delta, String groupAddress){
+    public Session(Socket s, HotelList h, UserList u, long delta){
         this.clientSocket = s;
         this.hotels = h;
         this.users = u;
         this.REVIEW_DELTA_DAYS = delta;
-        this.groupAddress = groupAddress;
     }
 
     public void run(){
@@ -60,9 +54,6 @@ public class Session implements Runnable {
 
         System.out.println(clientSocket + "sent: " + in);
 
-        
-        //TODO: listen for multicast packet
-
         switch(op) {
             case "register":
                 if(input.length != 3){
@@ -86,12 +77,7 @@ public class Session implements Runnable {
                 String loginStatus = login(input[1], pw_hash);
                 out.println(loginStatus);
 
-                try {
-                    InetAddress group = InetAddress.getByName(groupAddress);
-                    ms.joinGroup(group);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
+                //TODO: set Multicast group
 
                 break;
 
@@ -105,8 +91,7 @@ public class Session implements Runnable {
                     break;
                 }
 
-                InetAddress group = InetAddress.getByName(groupAddress);                
-                ms.leaveGroup(group);
+                //TODO: leave Multicast group
 
 
                 logout();
