@@ -40,8 +40,6 @@ public class Client {
                 if(msMsg != null){
                     System.out.println(msMsg);
                 }
-
-
             }
         }
         catch(IOException e){

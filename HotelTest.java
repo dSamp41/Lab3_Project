@@ -107,7 +107,7 @@ public class HotelTest {
         "  \"pwdHash\": \"afuheifugnf542\",\n" +
         "  \"badge\": \"A\",\n" +
         "  \"lastInsertedReviews\": {\n" +
-        "    \"Hotel Aosta 1\": \"2024-01-14\"\n" + 
+        "    \"Hotel Aosta 1\": \"2024-01-18\"\n" + 
         "  }\n" +
         "}";
 
@@ -164,6 +164,8 @@ public class HotelTest {
 
         ArrayList<Hotel> h = hotelList.getFirstRanked();
         assertEquals(cmp, h);
+
+        assertEquals(true, cmp.equals(h));
 
     }
     

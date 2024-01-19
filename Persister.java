@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
@@ -8,6 +9,9 @@ import com.google.gson.Gson;
 Used to serialize UserList and HotelList.
 It is called from the server every *x* times
 */
+
+
+//TODO: pass path as param; split users and hotels serialization
 
 public class Persister implements Runnable {
     private Gson gson;
@@ -22,8 +26,9 @@ public class Persister implements Runnable {
 
     public void run(){
         System.out.println("Serializing structures...");
-        String hJ = gson.toJson(hotels.getHotels());
+        
         String uJ = gson.toJson(users.getUsers());
+        String hJ = gson.toJson(hotels.getHotels());
 
         try(BufferedWriter userWriter = new BufferedWriter(new FileWriter("Users.json"));
             BufferedWriter hotelsWriter = new BufferedWriter(new FileWriter("Hotels.json")))
@@ -35,9 +40,10 @@ public class Persister implements Runnable {
             hotelsWriter.flush();
         } 
         catch(IOException e) {
+            System.err.println("Error during serialization");
             System.err.println(e.getMessage());
         }
 
-        System.out.println("Serialization was successfull");
+        System.out.println("Serialization was successful");
     }
 }

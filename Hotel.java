@@ -38,7 +38,7 @@ public class Hotel {
     public String toString(){
         String serviziDisp = String.join(", ", this.services);
 
-        return this.name + "\n" + this.description + "\n" + "Servizi disponibili: " + serviziDisp + "\n\n";
+        return this.name + "\n" + this.description + "\n" + "Servizi disponibili: " + serviziDisp + "\n" + "Rate: " + rate + "\n\n";
     }
 
     public void insertReview(float r, Ratings rtngs){

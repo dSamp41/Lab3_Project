@@ -24,13 +24,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Server {
     private static final int PORT = 9999;
-
+    
+    private static final int INIT_DELAY = 0;
     private static final int DELAY = 1;
     private static final TimeUnit UNIT = TimeUnit.MINUTES;
 
     private static final long REVIEW_DELTA_DAYS = 10;
     private static String GROUP_ADDRESS = "227.227.227.227";
     private static int MS_PORT = 7777;
+
+    private static long SORT_DELTA = 10_000;
     
     private static Type hotelArrayType = new TypeToken<ArrayList<Hotel>>(){}.getType();
     private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
@@ -80,12 +83,12 @@ public class Server {
 
             //periodically persists users and hotels data 
             ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.schedule(new Persister(gson, hotels, users), DELAY, UNIT);
+            scheduler.scheduleWithFixedDelay(new Persister(gson, hotels, users), INIT_DELAY, DELAY, UNIT);
             
             System.out.println("Server is running...");
 
             //This thread sort HotelList and send a notification to multicast group 
-            Thread packetSend = new Thread(new PacketSend(GROUP_ADDRESS, MS_PORT));     //TODO: add HotelList and DELTA_SORTING_TIME
+            Thread packetSend = new Thread(new PacketSend(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA));     //TODO: add HotelList and DELTA_SORTING_TIME
             packetSend.start();
 
             while(true){

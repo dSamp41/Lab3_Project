@@ -74,6 +74,8 @@ public class Session implements Runnable {
         }
         finally{
             System.out.println("A client left: " + clientSocket);
+            if(isLogged) logout();
+            
         }
     }
 

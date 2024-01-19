@@ -8,6 +8,22 @@ import java.util.stream.Collectors;
 public class HotelList {
     private ArrayList<Hotel> hotels;
 
+    //Sorting
+    /*
+    * city (incr)
+    * rate (decr)
+    * avg ratings (decr)
+    * num of services (decr)
+    * name (incr)
+    */
+
+    Comparator<Hotel> hotelComparator = Comparator
+        .comparing(Hotel::getCity).reversed()
+        .thenComparing(Hotel::getRate).reversed()
+        .thenComparing(Hotel::getRatingsAvg).reversed()
+        .thenComparing(Hotel::getNumServices).reversed()
+        .thenComparing(Hotel::getName);
+
     public HotelList(){
         this.hotels = new ArrayList<>();
     }
@@ -54,38 +70,12 @@ public class HotelList {
 
     //sort and returns clone of this.hotels
     public ArrayList<Hotel> getSorted(){
-        Comparator<Hotel> hotelComparator = Comparator
-            .comparing(Hotel::getCity)
-            .thenComparing(Hotel::getRate)
-            .thenComparing(Hotel::getRatingsAvg).reversed()
-            .thenComparing(Hotel::getNumServices).reversed()
-            .thenComparing(Hotel::getName);
-
         ArrayList<Hotel> clonedHotels = new ArrayList<Hotel>(this.hotels);
         Collections.sort(clonedHotels, hotelComparator);
         return clonedHotels;
     }
 
     public void sort(){
-        //Sorting
-        /*
-        * city (incr)
-        * rate (decr)
-        * avg ratings (decr)
-        * num of services (decr)
-        * name (incr)
-        */
-
-        Comparator<Hotel> hotelComparator = Comparator
-            .comparing(Hotel::getCity)
-            .thenComparing(Hotel::getRate)
-            .thenComparing(Hotel::getRatingsAvg).reversed()
-            .thenComparing(Hotel::getNumServices).reversed()
-            .thenComparing(Hotel::getName);
-        
         Collections.sort(this.hotels, hotelComparator);
     }
-
-    
-    
 }
