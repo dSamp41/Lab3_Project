@@ -61,7 +61,7 @@ public class Session implements Runnable {
                     }
                 }
                 catch(SocketTimeoutException e){
-                    //System.err.println("No msg sent");
+                    toClient.println("No msg sent");
                 }
                 catch(IOException e){
                     System.err.println(e.getMessage());
@@ -183,7 +183,7 @@ public class Session implements Runnable {
                     out.println("You must be logged in to insert a review");
                 }
 
-                String hotelName = input[1] + " " + input[2] + " " + input[3];
+                String hotelName = String.format("%s %s %s", input[1], input[2], input[3]);
                 String hotelCity = input[4];
                 int globalRate = Integer.parseInt(input[5]);
                 int[] ratings = {Integer.parseInt(input[6]), Integer.parseInt(input[7]), Integer.parseInt(input[8]), Integer.parseInt(input[8])};
@@ -191,7 +191,7 @@ public class Session implements Runnable {
                 out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
         
             default:
-                out.println("Unknown command");
+                out.println("Unknown command <" + op + ">");
                 break;
         }
     }

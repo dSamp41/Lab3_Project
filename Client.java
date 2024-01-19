@@ -15,7 +15,7 @@ public class Client {
             BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter toServer = new PrintWriter(socket.getOutputStream(), true);
         ){
-            String serverRsp, msMsg, userReq;
+            String serverRsp, userReq;
 
             System.out.println("Welcome, these are your actions: register, login, searchAllHotels, searchHotel, showBadge, logout, insertReview");
 
@@ -36,7 +36,7 @@ public class Client {
                     break;
                 }
 
-                msMsg = fromServer.readLine();
+                String msMsg = fromServer.readLine();
                 if(msMsg != null){
                     System.out.println(msMsg);
                 }
@@ -48,3 +48,5 @@ public class Client {
         
     }    
 }
+
+//TODO: change multicasting from Session to Client (new Thread)
