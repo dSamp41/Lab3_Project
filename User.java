@@ -26,12 +26,14 @@ public class User {
     private String username;
     private String pwdHash;
     private Badge badge;
+    private int reviewCount;
     private HashMap<String, LocalDate> lastInsertedReviews;
 
     public User(String u, String p){
         this.username = u;
         this.pwdHash = p;
         this.badge = Badge.A;
+        this.reviewCount = 0;
         this.lastInsertedReviews = new HashMap<>();
     }
 
@@ -68,6 +70,7 @@ public class User {
 
     public void addReview(String hotelName, LocalDate date){
         lastInsertedReviews.put(hotelName, date);
+        reviewCount++;
     }
 
     public Optional<LocalDate> getLastReviewDate(String hotelName){
