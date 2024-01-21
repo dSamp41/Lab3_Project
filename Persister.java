@@ -43,6 +43,9 @@ public class Persister implements Runnable {
             System.err.println("Error during serialization");
             System.err.println(e.getMessage());
         }
+        catch(Exception e){
+            System.err.println(e.getMessage());
+        }
 
         System.out.println("Serialization was successful");
     }

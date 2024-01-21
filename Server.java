@@ -26,10 +26,10 @@ public class Server {
     private static final int PORT = 9999;
     
     private static final int INIT_DELAY = 0;
-    private static final int DELAY = 1;
+    private static final int SERIALIZE_DELAY = 1;
     private static final TimeUnit UNIT = TimeUnit.MINUTES;
 
-    private static final long REVIEW_DELTA_DAYS = 10;
+    private static final long REVIEW_DELTA_DAYS = 1;
     private static String GROUP_ADDRESS = "227.227.227.227";
     private static int MS_PORT = 7777;
 
@@ -83,7 +83,7 @@ public class Server {
 
             //periodically persists users and hotels data 
             ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.scheduleWithFixedDelay(new Persister(gson, hotels, users), INIT_DELAY, DELAY, UNIT);
+            scheduler.scheduleWithFixedDelay(new Persister(gson, hotels, users), INIT_DELAY, SERIALIZE_DELAY, UNIT);
             
             System.out.println("Server is running...");
 

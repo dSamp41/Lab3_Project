@@ -112,14 +112,14 @@ public class Session implements Runnable {
                 String loginStatus = login(input[1], pw_hash);
                 out.println(loginStatus);
 
-                try {
+                /*try {
                     InetAddress group = InetAddress.getByName(groupAddress);
                     ms = new MulticastSocket(MS_PORT);
                     ms.setSoTimeout(500);
                     ms.joinGroup(group);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                }
+                }*/
 
                 break;
 
@@ -134,8 +134,8 @@ public class Session implements Runnable {
                 }
                 out.println(logout());
                 
-                InetAddress group = InetAddress.getByName(groupAddress);                
-                ms.leaveGroup(group);
+                /*InetAddress group = InetAddress.getByName(groupAddress);                
+                ms.leaveGroup(group);*/
                 
                 break;
                 
@@ -181,6 +181,7 @@ public class Session implements Runnable {
 
                 if(!isLogged){
                     out.println("You must be logged in to insert a review");
+                    break;
                 }
 
                 String hotelName = String.format("%s %s %s", input[1], input[2], input[3]);
@@ -189,7 +190,7 @@ public class Session implements Runnable {
                 int[] ratings = {Integer.parseInt(input[6]), Integer.parseInt(input[7]), Integer.parseInt(input[8]), Integer.parseInt(input[8])};
 
                 out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
-        
+                break;
             default:
                 out.println("Unknown command <" + op + ">");
                 break;
@@ -227,7 +228,7 @@ public class Session implements Runnable {
             this.username = username;
             this.currentUser = users.getByName(username);
 
-            return "Logged in";
+            return "Successfully logged in";
         }
     }
 

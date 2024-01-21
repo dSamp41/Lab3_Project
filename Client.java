@@ -2,11 +2,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MulticastSocket;
 import java.net.Socket;
+
+//TODO: multicast only to logged clients
 
 //split main in ClientMain to improve testability
 public class Client {
     private static final int PORT = 9999;
+    private static final int MS_PORT = 7777;
+    private static final Object consoleLock = new Object(); 
     
     public static void main(String[] args) {
 
@@ -14,15 +19,23 @@ public class Client {
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter toServer = new PrintWriter(socket.getOutputStream(), true);
+            MulticastSocket msSocket = new MulticastSocket(MS_PORT)
         ){
             String serverRsp, userReq;
 
             System.out.println("Welcome, these are your actions: register, login, searchAllHotels, searchHotel, showBadge, logout, insertReview");
 
+            //Start multicast sniffer
+            Thread msSniffer = new Thread(new MulticastSniffer(msSocket, consoleLock));
+            msSniffer.start();
+            
+
             while(true){
-                System.out.println("\nInsert text: ");
-                userReq = userInput.readLine();
-                toServer.println(userReq);
+                synchronized(consoleLock){
+                    System.out.println("\nInsert text: ");
+                    userReq = userInput.readLine();
+                    toServer.println(userReq);
+                }
 
                 serverRsp = fromServer.readLine();
                 if(serverRsp == null){
@@ -35,18 +48,10 @@ public class Client {
                 if(serverRsp.equals("Logout successful")){  //TODO: fix client logout closing phase 
                     break;
                 }
-
-                String msMsg = fromServer.readLine();
-                if(msMsg != null){
-                    System.out.println(msMsg);
-                }
             }
         }
         catch(IOException e){
             System.err.println(e.getMessage());
-        }
-        
+        }        
     }    
 }
-
-//TODO: change multicasting from Session to Client (new Thread)

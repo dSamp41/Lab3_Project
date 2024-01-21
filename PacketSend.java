@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 //This thread periodically sort HotelList. If the first position changes, it will notify multicast group
 public class PacketSend implements Runnable {
-    private String groupAddress = "227.227.227.227";
-    private int MS_PORT = 7777;
+    private String groupAddress;
+    private int MS_PORT;
     private HotelList hotelList;
     private long DELTA;
 
@@ -28,15 +28,39 @@ public class PacketSend implements Runnable {
                 
                 hotelList.sort();
                 newFirst = hotelList.getFirstRanked();
+                System.out.println("<PacketSend thread> Sorting HotelList");
 
-                if(newFirst.equals(oldFirst) == false){
+                
+                //DEBUG
+                try{   
                     String msg = "New hotel are now first ranked!";
                     byte[] buffer = msg.getBytes();
                     
-                    System.out.println(msg);
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(groupAddress), MS_PORT);
                     msSocket.send(packet);
+                    
+                    System.out.println(msg);
+                    System.out.println("MULTICASTIN' TIME BABY!!");
                 }
+                catch(Exception e){
+                    System.err.println(e.getMessage());
+                }
+
+                //
+
+                /*if(!newFirst.equals(oldFirst)){
+                    String msg = "New hotel are now first ranked!";
+                    byte[] buffer = msg.getBytes();
+                    
+                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(groupAddress), MS_PORT);
+                    msSocket.send(packet);
+                    
+                    System.out.println(msg);
+                    System.out.println("MULTICASTIN' TIME BABY!!");
+                }
+                else{
+                    System.out.println("No new first hotels");
+                }*/
             }
         }
         catch(Exception e){
