@@ -22,33 +22,15 @@ public class PacketSend implements Runnable {
             ArrayList<Hotel> oldFirst, newFirst;
             
             while(true){
-                Thread.sleep(DELTA);
-
+                Thread.sleep(DELTA);                
+                
                 oldFirst = hotelList.getFirstRanked();   //ottieni primi in ranking locali
                 
                 hotelList.sort();
                 newFirst = hotelList.getFirstRanked();
                 System.out.println("<PacketSend thread> Sorting HotelList");
 
-                
-                //DEBUG
-                try{   
-                    String msg = "New hotel are now first ranked!";
-                    byte[] buffer = msg.getBytes();
-                    
-                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(groupAddress), MS_PORT);
-                    msSocket.send(packet);
-                    
-                    System.out.println(msg);
-                    System.out.println("MULTICASTIN' TIME BABY!!");
-                }
-                catch(Exception e){
-                    System.err.println(e.getMessage());
-                }
-
-                //
-
-                /*if(!newFirst.equals(oldFirst)){
+                if(!newFirst.equals(oldFirst)){
                     String msg = "New hotel are now first ranked!";
                     byte[] buffer = msg.getBytes();
                     
@@ -60,7 +42,7 @@ public class PacketSend implements Runnable {
                 }
                 else{
                     System.out.println("No new first hotels");
-                }*/
+                }
             }
         }
         catch(Exception e){
