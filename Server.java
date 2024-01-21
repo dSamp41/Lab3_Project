@@ -88,7 +88,7 @@ public class Server {
             System.out.println("Server is running...");
 
             //This thread sort HotelList and send a notification to multicast group 
-            Thread packetSend = new Thread(new PacketSend(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA));     //TODO: add HotelList and DELTA_SORTING_TIME
+            Thread packetSend = new Thread(new PacketSend(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA));
             packetSend.start();
 
             while(true){
