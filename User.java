@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Optional;
 
+//0,5,10,20,50
 enum Badge {
     A("Recensore"), 
     B("Recensore esperto"), 

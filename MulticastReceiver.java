@@ -3,12 +3,11 @@ import java.net.DatagramPacket;
 import java.net.MulticastSocket;
 import java.net.SocketTimeoutException;
 
-public class MulticastSniffer implements Runnable {
+public class MulticastReceiver implements Runnable {
     private MulticastSocket ms;
     private Object consoleLock;
     
-
-    public MulticastSniffer(MulticastSocket ms, Object cl){
+    public MulticastReceiver(MulticastSocket ms, Object cl){
         this.ms = ms;
         this.consoleLock = cl;
     }

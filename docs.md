@@ -16,5 +16,7 @@ searchHotel &lt;nome&gt; &lt;città&gt;
 
 
 # Scelte di design
-L'algoritmo scleto per gestire le recensioni è una *Exponential Moving Average (EMA)*: r_next = alpha * review + (1-alpha)* r_prev.
-Ad ogni nuovo inserimento di recensione, il voto viene ricalcolato. Alpha è scelto pari a 0.3 per non causare sbalzi troppo repentini 
+L'algoritmo scleto per gestire le recensioni è una *Exponential Moving Average (EMA)*: r_next = alpha \* review + (1-alpha) \* r_prev.
+Ad ogni nuovo inserimento di recensione, il voto viene ricalcolato. Alpha è scelto pari a 0.3 per non causare sbalzi troppo repentini.
+
+- Multicast sender-receiver come thread separati

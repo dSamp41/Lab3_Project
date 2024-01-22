@@ -7,7 +7,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.google.gson.reflect.*;
+//import com.google.gson.reflect.*;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -37,9 +38,6 @@ public class Server {
     
     private static Type hotelArrayType = new TypeToken<ArrayList<Hotel>>(){}.getType();
     private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
-   
-    //TODO: gruppo multicast
-    //TODO: riordinamento hotelList + notifica
 
     public static void main(String[] args) {
 
@@ -88,11 +86,11 @@ public class Server {
             System.out.println("Server is running...");
 
             //This thread sort HotelList and send a notification to multicast group 
-            Thread packetSend = new Thread(new PacketSend(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA));
-            packetSend.start();
+            Thread msSender = new Thread(new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA));
+            msSender.start();
 
             while(true){
-                pool.execute(new Session(serverSocket.accept(), hotels, users, REVIEW_DELTA_DAYS, GROUP_ADDRESS, MS_PORT));
+                pool.execute(new Session(serverSocket.accept(), hotels, users, REVIEW_DELTA_DAYS));
             }
         } 
         catch(IOException e) {

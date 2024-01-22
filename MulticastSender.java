@@ -4,13 +4,13 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 
 //This thread periodically sort HotelList. If the first position changes, it will notify multicast group
-public class PacketSend implements Runnable {
+public class MulticastSender implements Runnable {
     private String groupAddress;
     private int MS_PORT;
     private HotelList hotelList;
     private long DELTA;
 
-    public PacketSend(String groupAddress, int port, HotelList hotels, long delta){
+    public MulticastSender(String groupAddress, int port, HotelList hotels, long delta){
         this.groupAddress = groupAddress;
         this.MS_PORT = port;
         this.hotelList = hotels;
@@ -21,13 +21,18 @@ public class PacketSend implements Runnable {
         try(DatagramSocket msSocket = new DatagramSocket()){
             ArrayList<Hotel> oldFirst, newFirst;
             
+            oldFirst = hotelList.getFirstRanked();   //ottieni primi in ranking locali
+            
             while(true){
                 Thread.sleep(DELTA);                
-                
-                oldFirst = hotelList.getFirstRanked();   //ottieni primi in ranking locali
-                
+                    
                 hotelList.sort();
                 newFirst = hotelList.getFirstRanked();
+
+                ArrayList<Hotel> delta = new ArrayList<>(newFirst);
+                delta.removeAll(oldFirst);
+                
+                System.out.println("New hotels: " + delta);
                 System.out.println("<PacketSend thread> Sorting HotelList");
 
                 if(!newFirst.equals(oldFirst)){
@@ -43,6 +48,8 @@ public class PacketSend implements Runnable {
                 else{
                     System.out.println("No new first hotels");
                 }
+
+                oldFirst = newFirst;
             }
         }
         catch(Exception e){

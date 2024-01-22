@@ -6,8 +6,6 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
 
-//TODO: multicast only to logged clients
-
 //split main in ClientMain to improve testability
 public class Client {
     private static final int PORT = 9999;
@@ -24,15 +22,14 @@ public class Client {
             PrintWriter toServer = new PrintWriter(socket.getOutputStream(), true);
             MulticastSocket msSocket = new MulticastSocket(MS_PORT)
         ){
-            String serverRsp, userReq;
-
-            System.out.println("Welcome, these are your actions: register, login, searchAllHotels, searchHotel, showBadge, logout, insertReview");
-
-            //Start multicast sniffer
             msSocket.joinGroup(InetAddress.getByName(GROUP_ADDRESS));
-            Thread msSniffer = new Thread(new MulticastSniffer(msSocket, consoleLock));
-            msSniffer.start();
-            
+            Thread msSniffer = new Thread(new MulticastReceiver(msSocket, consoleLock));
+
+            String serverRsp, userReq;
+            boolean loggedIn = false;
+
+            //TODO: return some actions only if logged in
+            System.out.println("Welcome, these are your actions: register, login, searchAllHotels, searchHotel, showBadge, logout, insertReview");
 
             while(true){
                 synchronized(consoleLock){
@@ -49,13 +46,27 @@ public class Client {
                 
                 serverRsp = serverRsp.replace("^", "\n");
                 System.out.println("Server: " + serverRsp);
-                if(serverRsp.equals("Logout successful")){  //TODO: fix client logout closing phase 
+
+                if(serverRsp.equals("Successfully logged in")){
+                    loggedIn = true;
+
+                    //Start multicast sniffer
+                    msSniffer.start();
+                    System.out.println("Started receive");
+                }
+
+                if(serverRsp.equals("Logout successful")){
+                    loggedIn = false;
+                    msSniffer.interrupt();
                     break;
                 }
             }
         }
         catch(IOException e){
             System.err.println(e.getMessage());
-        }        
+        }
+        catch(Exception e){
+            System.err.println(e.getMessage());
+        }   
     }    
 }

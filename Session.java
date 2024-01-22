@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.DatagramPacket;
-import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -24,17 +23,11 @@ public class Session implements Runnable {
     private String username = "";
     private User currentUser;
 
-    private String groupAddress;
-    private int MS_PORT;
-    private MulticastSocket ms;
-
-    public Session(Socket s, HotelList h, UserList u, long delta, String groupAddress, int port){
+    public Session(Socket s, HotelList h, UserList u, long delta){
         this.clientSocket = s;
         this.hotels = h;
         this.users = u;
         this.REVIEW_DELTA_DAYS = delta;
-        this.groupAddress = groupAddress;
-        this.MS_PORT = port;
     }
 
     public void run(){
@@ -45,28 +38,8 @@ public class Session implements Runnable {
         {
             String inputLine;
 
-            //Multicast structures
-            byte[] buffer = new byte[1024];
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-
             while((inputLine = fromClient.readLine()) != null){
                 processCommand(inputLine, toClient);
-
-                //Try to receive packet
-                try{
-                    if(ms != null){
-                        ms.receive(packet);  // Receive packet from multicast group
-                        String message = new String(packet.getData(), 0, packet.getLength());
-                        toClient.println("Multicast: " + message);
-                    }
-                }
-                catch(SocketTimeoutException e){
-                    toClient.println("No msg sent");
-                }
-                catch(IOException e){
-                    System.err.println(e.getMessage());
-                }
-
             }
         } 
         catch (Exception e) {
@@ -85,9 +58,6 @@ public class Session implements Runnable {
         String op = input[0];
 
         System.out.println(clientSocket + "sent: " + in);
-
-
-        //TODO: listen for multicast packet
 
         switch(op) {
             case "register":
@@ -112,15 +82,6 @@ public class Session implements Runnable {
                 String loginStatus = login(input[1], pw_hash);
                 out.println(loginStatus);
 
-                /*try {
-                    InetAddress group = InetAddress.getByName(groupAddress);
-                    ms = new MulticastSocket(MS_PORT);
-                    ms.setSoTimeout(500);
-                    ms.joinGroup(group);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }*/
-
                 break;
 
             case "logout":
@@ -132,11 +93,8 @@ public class Session implements Runnable {
                     out.println("Not logged in");
                     break;
                 }
+
                 out.println(logout());
-                
-                /*InetAddress group = InetAddress.getByName(groupAddress);                
-                ms.leaveGroup(group);*/
-                
                 break;
                 
             case "searchAllHotels":
@@ -191,8 +149,9 @@ public class Session implements Runnable {
 
                 out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
                 break;
+
             default:
-                out.println("Unknown command <" + op + ">");
+                out.printf("Unknown command <%s>\n", op);
                 break;
         }
     }
