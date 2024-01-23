@@ -35,6 +35,12 @@ public class Client {
                 synchronized(consoleLock){
                     System.out.println("\nInsert text: ");
                     userReq = userInput.readLine();
+                    
+                    if(socket.isClosed()){      //check if the server is down before sending something
+                        System.out.println("The server is down. Disconetting...");
+                        break;
+                    }
+
                     toServer.println(userReq);
                 }
 
