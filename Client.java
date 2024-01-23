@@ -29,13 +29,17 @@ public class Client {
             String serverRsp, userReq;
             boolean loggedIn = false;
 
-            //TODO: return some actions only if logged in
-            System.out.println("Welcome, these are your actions: register, login, searchAllHotels, searchHotel, showBadge, logout, insertReview");
+            System.out.println(getHelpMessage(false));
 
             while(true){
                 synchronized(consoleLock){
                     System.out.println("\nInsert text: ");
                     userReq = userInput.readLine();
+
+                    if(userReq.equals("help")){
+                        System.out.println(getHelpMessage(loggedIn));
+                        continue;
+                    }
                     
                     if(socket.isClosed()){      //check if the server is down before sending something
                         System.out.println("The server is down. Disconetting...");
@@ -79,5 +83,23 @@ public class Client {
         catch(Exception e){
             System.err.println(e.getMessage());
         }
-    }    
+    }
+
+    private static String getHelpMessage(boolean isLoggedIn){
+        String baseString = "Welcome, these are your actions: ";
+        String notLoggedInActions = "register, login";
+        String loggedInActions = "showBadge, insertReview, logout";
+        String commonActions = "searchAllHotels, searchHotel, ";
+
+        String helpString = baseString + commonActions;
+
+        if(isLoggedIn == false){
+            helpString += notLoggedInActions;
+        }
+        else{
+            helpString += loggedInActions;
+        }
+
+        return helpString;
+    }
 }
