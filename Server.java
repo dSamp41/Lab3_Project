@@ -13,6 +13,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Server {
+    private static final String HOTEL_PATH = "Hotels.json";
+    private static final String USER_PATH = "Users.json";
     private static final int PORT = 9999;
     
     private static final int INIT_DELAY = 0;
@@ -57,9 +59,11 @@ public class Server {
         ){
             
             //periodically persists users and hotels data 
-            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.scheduleWithFixedDelay(new Persister(gson, hotels, users), INIT_DELAY, SERIALIZE_DELAY, UNIT);
-            
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+            scheduler.scheduleWithFixedDelay(new Persister<Hotel>(gson, HOTEL_PATH, hotels.getHotels()), INIT_DELAY, SERIALIZE_DELAY, UNIT);
+            scheduler.scheduleWithFixedDelay(new Persister<User>(gson, USER_PATH, users.getUsers()), INIT_DELAY, SERIALIZE_DELAY, UNIT);
+
+
             System.out.println("Server is running...");
 
             //This thread sort HotelList and send a notification to multicast group 

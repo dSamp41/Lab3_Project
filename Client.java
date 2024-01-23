@@ -61,7 +61,6 @@ public class Client {
                     System.out.println("Started receive");
                 }
 
-                //TODO: on logout infinite "Socket closed"
                 if(serverRsp.equals("Logout successful")){     //User is logged out
                     loggedIn = false;
                     msSniffer.interrupt();

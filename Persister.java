@@ -13,31 +13,32 @@ It is called from the server every *x* times
 
 //TODO: pass path as param; split users and hotels serialization
 
-public class Persister implements Runnable {
+public class Persister<T> implements Runnable {
     private Gson gson;
-    private HotelList hotels;
-    private UserList users;
+    private String path;
+    private ArrayList<T> arr;
 
-    public Persister(Gson gson, HotelList h, UserList u){
+    public Persister(Gson gson, String path, ArrayList<T> arr){
         this.gson = gson;
-        this.hotels = h;
-        this.users = u;
+        this.path = path;
+        this.arr = arr;
     }
 
     public void run(){
-        System.out.println("Serializing structures...");
+        //TODO: remove s
+        String s = "";
+
+        if(path.contains("Users")) s = "<Users> ";
+        if(path.contains("Hotels")) s = "<Hotels> ";
         
-        String uJ = gson.toJson(users.getUsers());
-        String hJ = gson.toJson(hotels.getHotels());
+        System.out.println(s + "Serializing structures... " );
+        
+        String arrJson = gson.toJson(arr);
 
-        try(BufferedWriter userWriter = new BufferedWriter(new FileWriter("Users.json"));
-            BufferedWriter hotelsWriter = new BufferedWriter(new FileWriter("Hotels.json")))
+        try(BufferedWriter arrWriter = new BufferedWriter(new FileWriter(path)))
         {
-            userWriter.write(uJ);
-            userWriter.flush();
-
-            hotelsWriter.write(hJ);
-            hotelsWriter.flush();
+            arrWriter.write(arrJson);
+            arrWriter.flush();
         } 
         catch(IOException e) {
             System.err.println("Error during serialization");
