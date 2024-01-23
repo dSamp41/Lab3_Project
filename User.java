@@ -72,11 +72,29 @@ public class User {
     public void addReview(String hotelName, LocalDate date){
         lastInsertedReviews.put(hotelName, date);
         reviewCount++;
+        updateBadge();
     }
 
     public Optional<LocalDate> getLastReviewDate(String hotelName){
         return Optional.ofNullable(lastInsertedReviews.get(hotelName));
     }
     
-    //TODO: updateBadge
+    //TODO: UserTest
+    private void updateBadge(){
+        if(reviewCount < 5){
+            badge = Badge.A;
+        }
+        else if(reviewCount < 10){
+            badge = Badge.B;
+        }
+        else if(reviewCount < 20){
+            badge = Badge.C;
+        }
+        else if(reviewCount < 50){
+            badge = Badge.D;
+        }
+        else{
+            badge = Badge.E;
+        }
+    }
 }

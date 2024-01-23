@@ -2,6 +2,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 //This thread periodically sort HotelList. If the first position changes, it will notify multicast group
 public class MulticastSender implements Runnable {
@@ -32,7 +34,9 @@ public class MulticastSender implements Runnable {
                 ArrayList<Hotel> delta = new ArrayList<>(newFirst);
                 delta.removeAll(oldFirst);
                 
-                System.out.println("New hotels: " + delta);
+                List<String> deltaName = delta.stream().map(h -> h.getName()).collect(Collectors.toList());
+                System.out.println("New hotels: " + deltaName);
+
                 System.out.println("<PacketSend thread> Sorting HotelList");
 
                 if(!newFirst.equals(oldFirst)){

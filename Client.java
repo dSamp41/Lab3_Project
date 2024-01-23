@@ -47,7 +47,7 @@ public class Client {
                 serverRsp = serverRsp.replace("^", "\n");
                 System.out.println("Server: " + serverRsp);
 
-                if(serverRsp.equals("Successfully logged in")){
+                if(serverRsp.equals("Successfully logged in")){     //User is logged in
                     loggedIn = true;
 
                     //Start multicast sniffer
@@ -55,7 +55,8 @@ public class Client {
                     System.out.println("Started receive");
                 }
 
-                if(serverRsp.equals("Logout successful")){
+                //TODO: on logout infinite "Socket closed"
+                if(serverRsp.equals("Logout successful")){     //User is logged out
                     loggedIn = false;
                     msSniffer.interrupt();
                     break;

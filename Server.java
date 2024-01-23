@@ -39,10 +39,13 @@ public class Server {
     private static Type hotelArrayType = new TypeToken<ArrayList<Hotel>>(){}.getType();
     private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
 
+    //TODO: constructor to inject parameters
+
     public static void main(String[] args) {
 
+        //TODO: create a GsonFactory
         //https://stackoverflow.com/questions/39192945/serialize-java-8-localdate-as-yyyy-mm-dd-with-gson
-        class LocalDateAdapter implements JsonSerializer<LocalDate> {
+        /*class LocalDateAdapter implements JsonSerializer<LocalDate> {
             public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
                 return new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE)); // "yyyy-mm-dd"
             }
@@ -58,11 +61,28 @@ public class Server {
             })
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .create();
+        */
+
+        Gson gson = new GsonBuilder().setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new JsonDeserializer<LocalDate>() {
+                @Override
+                public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                    return LocalDate.parse(json.getAsJsonPrimitive().getAsString());
+                }
+            })
+            .registerTypeAdapter(LocalDate.class, new JsonSerializer<LocalDate>() {
+                @Override
+                public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
+                    return new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE)); // "yyyy-mm-dd"
+                }
+            })
+            .create();
 
         //Setup hotels and users lists
         HotelList hotels = new HotelList();
         UserList users = new UserList();
 
+        //TODO: test if file do not exist
         try(FileReader hotelReader = new FileReader("Hotels.json");
             FileReader userReader = new FileReader("Users.json"))
         {
@@ -73,12 +93,14 @@ public class Server {
             System.err.println(e.getMessage());
         }
 
+        ExecutorService pool = Executors.newCachedThreadPool();
+        Thread msSender = new Thread(new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA));
+
         //Starting the server
         try(ServerSocket serverSocket = new ServerSocket(PORT);
             DatagramSocket msSocket = new DatagramSocket();
         ){
-            ExecutorService pool = Executors.newCachedThreadPool();
-
+            
             //periodically persists users and hotels data 
             ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.scheduleWithFixedDelay(new Persister(gson, hotels, users), INIT_DELAY, SERIALIZE_DELAY, UNIT);
@@ -86,15 +108,19 @@ public class Server {
             System.out.println("Server is running...");
 
             //This thread sort HotelList and send a notification to multicast group 
-            Thread msSender = new Thread(new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA));
             msSender.start();
 
             while(true){
                 pool.execute(new Session(serverSocket.accept(), hotels, users, REVIEW_DELTA_DAYS));
             }
+            
         } 
         catch(IOException e) {
             System.err.println(e.getMessage());
+        }
+        finally{
+            msSender.interrupt();
+            pool.shutdown();
         }
     }
 }
