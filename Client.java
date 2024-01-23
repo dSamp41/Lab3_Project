@@ -65,7 +65,6 @@ public class Client {
                 if(serverRsp.equals("Logout successful")){     //User is logged out
                     loggedIn = false;
                     msSniffer.interrupt();
-                    break;
                 }
             }
         }
