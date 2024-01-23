@@ -9,10 +9,11 @@ import java.net.Socket;
 //split main in ClientMain to improve testability
 public class Client {
     private static final int PORT = 9999;
-    private static final Object consoleLock = new Object();
-
+    
     private static String GROUP_ADDRESS = "227.227.227.227";
     private static final int MS_PORT = 7777;
+    
+    private static final Object consoleLock = new Object();
     
     public static void main(String[] args) {
 
@@ -66,12 +67,17 @@ public class Client {
                     msSniffer.interrupt();
                 }
             }
+            
+            //if client exits without logout, force msSniffer interruption
+            if(msSniffer.isAlive()){
+                msSniffer.interrupt();
+            }
         }
         catch(IOException e){
             System.err.println(e.getMessage());
         }
         catch(Exception e){
             System.err.println(e.getMessage());
-        }   
+        }
     }    
 }

@@ -10,9 +10,6 @@ Used to serialize UserList and HotelList.
 It is called from the server every *x* times
 */
 
-
-//TODO: pass path as param; split users and hotels serialization
-
 public class Persister<T> implements Runnable {
     private Gson gson;
     private String path;
@@ -27,10 +24,8 @@ public class Persister<T> implements Runnable {
     public void run(){
         //TODO: remove s
         String s = "";
-
         if(path.contains("Users")) s = "<Users> ";
         if(path.contains("Hotels")) s = "<Hotels> ";
-        
         System.out.println(s + "Serializing structures... " );
         
         String arrJson = gson.toJson(arr);
