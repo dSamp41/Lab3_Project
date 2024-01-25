@@ -86,12 +86,11 @@ public class Client {
     }
 
     private static String getHelpMessage(boolean isLoggedIn){
-        String baseString = "Welcome, these are your actions: ";
+        String baseString = "Welcome, these are your actions: help, searchAllHotels, searchHotel, ";
         String notLoggedInActions = "register, login";
         String loggedInActions = "showBadge, insertReview, logout";
-        String commonActions = "searchAllHotels, searchHotel, ";
 
-        String helpString = baseString + commonActions;
+        String helpString = baseString;
 
         if(isLoggedIn == false){
             helpString += notLoggedInActions;

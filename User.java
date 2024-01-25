@@ -79,7 +79,6 @@ public class User {
         return Optional.ofNullable(lastInsertedReviews.get(hotelName));
     }
     
-    //TODO: UserTest
     private void updateBadge(){
         if(reviewCount < 5){
             badge = Badge.A;

@@ -13,6 +13,7 @@ logout
 searchAllHotels &lt;città&gt;
 searchHotel &lt;nome&gt; &lt;città&gt;
 
+## Help
 
 
 # Scelte di design
