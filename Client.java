@@ -1,23 +1,30 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
+import java.util.Properties;
 
 //split main in ClientMain to improve testability
 public class Client {
-    private static final int PORT = 9999;
+    private static String SERVER_IP;
+    private static int PORT;
     
-    private static String GROUP_ADDRESS = "227.227.227.227";
-    private static final int MS_PORT = 7777;
+    private static String GROUP_ADDRESS;
+    private static int MS_PORT;
     
     private static final Object consoleLock = new Object();
     
+    private static final String configPath = "client.properties";
     public static void main(String[] args) {
 
-        try(Socket socket = new Socket("localhost", PORT);
+        readConfig(configPath);
+
+        try(Socket socket = new Socket(SERVER_IP, PORT);
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter toServer = new PrintWriter(socket.getOutputStream(), true);
@@ -100,5 +107,26 @@ public class Client {
         }
 
         return helpString;
+    }
+
+    public static void readConfig(String configPath) {
+        try(FileInputStream input = new FileInputStream(configPath)) 
+        {        
+            Properties prop = new Properties();
+            prop.load(input);
+
+            SERVER_IP = prop.getProperty("SERVER_IP");
+            PORT = Integer.parseInt(prop.getProperty("PORT"));
+            GROUP_ADDRESS = prop.getProperty("GROUP_ADDRESS");
+            MS_PORT = Integer.parseInt(prop.getProperty("MS_PORT"));
+        }
+        catch(FileNotFoundException e){
+            System.err.println("Config file not found");
+            System.exit(-1);
+        }
+        catch (IOException e) {
+            System.err.println(e.getMessage());
+            System.exit(-1);
+        }        
     }
 }
