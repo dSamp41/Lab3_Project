@@ -26,7 +26,7 @@ public class MulticastSender implements Runnable {
             oldFirst = hotelList.getFirstRanked();   //ottieni primi in ranking locali
             
             while(true){
-                Thread.sleep(DELTA);                
+                Thread.sleep(DELTA);     //TODO: remove sleep and schedule thread           
                     
                 hotelList.sort();
                 newFirst = hotelList.getFirstRanked();
