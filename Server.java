@@ -9,6 +9,7 @@ import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -30,7 +31,7 @@ public class Server {
 
     private static long SORT_DELTA_MILLS;
     
-    private static Type hotelArrayType = new TypeToken<ArrayList<Hotel>>(){}.getType();
+    private static Type hotelArrayType = new TypeToken<ConcurrentHashMap<String, ArrayList<Hotel>>>(){}.getType();//new TypeToken<ArrayList<Hotel>>(){}.getType();
     private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
 
     private static String configPath = "server.properties";
@@ -67,8 +68,8 @@ public class Server {
             
             //periodically persists users and hotels data 
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
-            scheduler.scheduleWithFixedDelay(new Persister<Hotel>(gson, HOTEL_PATH, hotels.getHotels()), INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
-            scheduler.scheduleWithFixedDelay(new Persister<User>(gson, USER_PATH, users.getUsers()), INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
+            scheduler.scheduleWithFixedDelay(new Persister<>(gson, HOTEL_PATH, hotels.getHotels()), INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
+            scheduler.scheduleWithFixedDelay(new Persister<ArrayList<User>>(gson, USER_PATH, users.getUsers()), INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
 
 
             System.out.println("Server is running...");

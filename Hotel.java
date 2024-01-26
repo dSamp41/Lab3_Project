@@ -6,6 +6,8 @@ public class Hotel {
     private ArrayList<String> services;
     private float rate;
     private Ratings ratings;
+
+    private int numReviews;
     
     public Hotel(int id, String name, String description, String city, String phone, 
     ArrayList<String> services, float rate, Ratings ratings){
@@ -17,6 +19,8 @@ public class Hotel {
         this.services = services;
         this.rate = rate;
         this.ratings = ratings;
+
+        this.numReviews = 0;
     }
 
     public String getCity() {return this.city;}
@@ -35,6 +39,8 @@ public class Hotel {
         return this.ratings.getRatingsAvg();
     }
 
+    public int getNumReviews() {return this.numReviews;}
+
     public String toString(){
         String serviziDisp = String.join(", ", this.services);
 
@@ -52,6 +58,8 @@ public class Hotel {
 
         Ratings newRatings = new Ratings(newCleaning, newPosition, newServices, newQuality);
         this.ratings = newRatings;
+
+        this.numReviews++;
     }
     
     private float EMA(float oldVal, float newVal){
@@ -63,7 +71,11 @@ public class Hotel {
         float res = (1-alpha) * oldVal + (alpha * newVal);
         
         return res;
-    }    
+    }
+
+    public float getScore(){
+        return this.rate + getRatingsAvg() + numReviews;
+    }
 }
 
 

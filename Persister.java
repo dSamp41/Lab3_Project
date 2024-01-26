@@ -1,8 +1,6 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import com.google.gson.Gson;
 
@@ -14,9 +12,9 @@ It is called from the server every *x* times
 public class Persister<T> implements Runnable {
     private Gson gson;
     private String path;
-    private Collection<?> arr;
+    private T arr;
 
-    public Persister(Gson gson, String path, Collection<?> arr){
+    public Persister(Gson gson, String path, T arr){
         this.gson = gson;
         this.path = path;
         this.arr = arr;
