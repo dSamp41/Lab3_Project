@@ -19,8 +19,7 @@ public class HotelList {
     */
 
     Comparator<Hotel> hotelComparator = Comparator
-        .comparing(Hotel::getCity).reversed()
-        .thenComparing(Hotel::getRate).reversed()
+        .comparing(Hotel::getRate)//.reversed()
         .thenComparing(Hotel::getRatingsAvg).reversed()
         .thenComparing(Hotel::getNumReviews).reversed()
         .thenComparing(Hotel::getNumServices).reversed()
@@ -29,16 +28,6 @@ public class HotelList {
     public HotelList(){
         this.hotels = new ConcurrentHashMap<>();
     }
-
-    /*public List<Hotel> getHotels(){
-        Collection<ArrayList<Hotel>> hs = this.hotels.values();
-
-        List<Hotel> flattenedList = hs.stream()
-            .flatMap(Collection::stream)
-            .collect(Collectors.toList());
-
-        return flattenedList;
-    }*/
 
     public ConcurrentHashMap<String, ArrayList<Hotel>> getHotels(){
         return hotels;
@@ -60,26 +49,6 @@ public class HotelList {
         });
         
     }
-
-    /*
-    public void addAll(List<Hotel> hotelList){
-        for(Hotel h: hotelList){
-
-            hotels.compute(h.getCity(), (key, arr) -> {
-                // If the key is not present, create a new ArrayList and add the hotel
-                if(arr == null) {
-                    ArrayList<Hotel> newList = new ArrayList<>();
-                    newList.add(h);
-                    return newList;
-                } 
-                else {
-                    // If the key is present, add the hotel to the existing ArrayList
-                    arr.add(h);
-                    return arr;
-                }
-            });
-        }
-    }*/
 
     public void addAll(ConcurrentHashMap<String, ArrayList<Hotel>> newHotels){
         newHotels.forEach((k, arr) -> hotels.merge(k, arr, (a1, a2) -> {
