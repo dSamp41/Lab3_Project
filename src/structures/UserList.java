@@ -15,6 +15,7 @@ public class UserList {
         return this.users;
     }
 
+    //TODO: implement sorted insertion
     public void add(User u){
         users.add(u);
     }
@@ -22,6 +23,8 @@ public class UserList {
     public void addAll(ArrayList<User> u){
         users.addAll(u);
     }
+
+    //TODO: binary search
 
     public List<User> searchByUsername(String name){
         Predicate<User> p = u -> (u.getUsername().equals(name));

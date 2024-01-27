@@ -28,7 +28,8 @@ public class Server {
     
     private static final int INIT_DELAY = 0;
     
-    private static int SERIALIZE_DELAY_MINS;
+    private static int SERIALIZE_HOTEL_DELAY_MINS;
+    private static int SERIALIZE_USER_DELAY_MINS;
     private static final TimeUnit UNIT = TimeUnit.MINUTES;
 
     private static long REVIEW_DELTA_DAYS;
@@ -67,10 +68,10 @@ public class Server {
         ){
             //periodically persists users and hotels data + sort and multicast notification
             Runnable hotelPersister = new Persister<>(gson, HOTEL_PATH, hotels.getHotels());
-            scheduler.scheduleWithFixedDelay(hotelPersister, INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
+            scheduler.scheduleWithFixedDelay(hotelPersister, INIT_DELAY, SERIALIZE_HOTEL_DELAY_MINS, UNIT);
 
             Runnable userPersister = new Persister<ArrayList<User>>(gson, USER_PATH, users.getUsers());
-            scheduler.scheduleWithFixedDelay(userPersister, INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
+            scheduler.scheduleWithFixedDelay(userPersister, INIT_DELAY, SERIALIZE_USER_DELAY_MINS, UNIT);
             
             //This task sort HotelList and send a notification to multicast group 
             Runnable sorter = new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels);
@@ -106,7 +107,8 @@ public class Server {
             USER_PATH = prop.getProperty("USER_PATH");
 
             SORT_DELTA_MILLS = Long.parseLong(prop.getProperty("SORT_DELTA_MILLS"));
-            SERIALIZE_DELAY_MINS = Integer.parseInt(prop.getProperty("SERIALIZE_DELAY_MINS"));
+            SERIALIZE_HOTEL_DELAY_MINS = Integer.parseInt(prop.getProperty("SERIALIZE_HOTEL_DELAY_MINS"));
+            SERIALIZE_USER_DELAY_MINS = Integer.parseInt(prop.getProperty("SERIALIZE_USER_DELAY_MINS"));
             REVIEW_DELTA_DAYS = Long.parseLong(prop.getProperty("REVIEW_DELTA_DAYS"));
         } 
         catch (IOException e) {

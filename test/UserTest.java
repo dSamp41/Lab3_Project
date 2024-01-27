@@ -1,13 +1,8 @@
 import static org.junit.Assert.assertEquals;
-
-import java.lang.reflect.Type;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import org.junit.Test;
 
 import com.google.gson.Gson;
-
+import java.time.LocalDate;
 import src.server.GsonFactory;
 import src.structures.User;
 
@@ -33,8 +28,6 @@ public class UserTest {
 
         assertEquals(result, userJSON);
     }
-
-
 
     @Test
     public void userBadgeTest(){
