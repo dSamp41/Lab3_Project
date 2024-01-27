@@ -161,7 +161,7 @@ public class Session implements Runnable {
     }
 
     private String register(String username, String pwdHash){
-        boolean usernameAlreadyTaken = users.searchByUsername(username).size() != 0;
+        boolean usernameAlreadyTaken = users.getByUsername(username).isPresent();
         
         if(usernameAlreadyTaken){
             return "Username already taken";
@@ -176,20 +176,20 @@ public class Session implements Runnable {
         if(isLogged){
             return "Already logged in";
         }
-        List<User> userWithUsername = users.searchByUsername(username);
+        Optional<User> userWithUsername = users.getByUsername(username);
 
-        if(userWithUsername.size() == 0){
+        if(userWithUsername.isEmpty()){
             return "This user doesn't exist";
         }
         
-        User user = userWithUsername.get(0);
-        if(!user.getHash().equals(pwdHash)){    //wrong password
+        User user = userWithUsername.get();
+        if(!user.getHash().equals(pwdHash)){    //right username, wrong password
             return "Wrong password";
         }
         else{
             this.isLogged = true;
             this.username = username;
-            this.currentUser = users.getByName(username);
+            this.currentUser = user;
 
             return "Successfully logged in";
         }
@@ -226,7 +226,8 @@ public class Session implements Runnable {
     }
 
     private String showBadge(String username){
-        return users.searchByUsername(username).get(0).getBadge();
+        return users.getByUsername(username).get()
+            .getBadge();
     }
 
     private String insertReview(String hotelName, String hotelCity, float globalRate, int[] ratings){

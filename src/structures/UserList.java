@@ -1,41 +1,33 @@
 package src.structures;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+//TreeMap per avere O(log n) get, put
 
 public class UserList {
-    private ArrayList<User> users;
+    private SortedMap<String, User> users;
 
     public UserList(){
-        this.users = new ArrayList<>();
+        this.users = Collections.synchronizedSortedMap(new TreeMap<String, User>());
     }
 
-    public ArrayList<User> getUsers(){
+    public SortedMap<String, User> getUsers(){
         return this.users;
     }
 
-    //TODO: implement sorted insertion
     public void add(User u){
-        users.add(u);
+        users.put(u.getUsername(), u);
     }
 
-    public void addAll(ArrayList<User> u){
-        users.addAll(u);
+    public void addAll(Map<String, User> u){
+        users.putAll(u);
     }
 
-    //TODO: binary search
-
-    public List<User> searchByUsername(String name){
-        Predicate<User> p = u -> (u.getUsername().equals(name));
-        
-        return users.stream().filter(p).collect(Collectors.toList());
+    public Optional<User> getByUsername(String name){
+        return Optional.ofNullable(users.get(name));
     }
-
-    public User getByName(String username) {
-        Predicate<User> p = u -> (u.getUsername().equals(username));
-        
-        return users.stream().filter(p).findFirst().get();
-    }
-
 }

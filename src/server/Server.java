@@ -15,6 +15,7 @@ import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.SortedMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,7 +40,7 @@ public class Server {
     private static long SORT_DELTA_MILLS;
     
     private static Type hotelArrayType = new TypeToken<ConcurrentHashMap<String, ArrayList<Hotel>>>(){}.getType();//new TypeToken<ArrayList<Hotel>>(){}.getType();
-    private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
+    private static Type userArrayType = new TypeToken<SortedMap<String, User>>(){}.getType();
 
     public void start() {
         Gson gson = GsonFactory.get();
@@ -70,7 +71,7 @@ public class Server {
             Runnable hotelPersister = new Persister<>(gson, HOTEL_PATH, hotels.getHotels());
             scheduler.scheduleWithFixedDelay(hotelPersister, INIT_DELAY, SERIALIZE_HOTEL_DELAY_MINS, UNIT);
 
-            Runnable userPersister = new Persister<ArrayList<User>>(gson, USER_PATH, users.getUsers());
+            Runnable userPersister = new Persister<>(gson, USER_PATH, users.getUsers());
             scheduler.scheduleWithFixedDelay(userPersister, INIT_DELAY, SERIALIZE_USER_DELAY_MINS, UNIT);
             
             //This task sort HotelList and send a notification to multicast group 
