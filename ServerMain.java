@@ -5,5 +5,4 @@ public class ServerMain {
         server.readConfig(serverConfigPath);
         server.start();
     }
-    
 }
