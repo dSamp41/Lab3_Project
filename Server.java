@@ -37,6 +37,9 @@ public class Server {
     private static String configPath = "server.properties";
 
     //TODO: constructor to inject parameters
+    public Server(String configPath){
+        this.configPath = configPath;
+    }
 
     public static void main(String[] args) {
         readConfig(configPath);
@@ -59,33 +62,36 @@ public class Server {
         }
 
         ExecutorService pool = Executors.newCachedThreadPool();
-        Thread msSender = new Thread(new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA_MILLS));
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
 
         //Starting the server
         try(ServerSocket serverSocket = new ServerSocket(PORT);
             DatagramSocket msSocket = new DatagramSocket();
         ){
             
-            //periodically persists users and hotels data 
-            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
-            scheduler.scheduleWithFixedDelay(new Persister<>(gson, HOTEL_PATH, hotels.getHotels()), INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
-            scheduler.scheduleWithFixedDelay(new Persister<ArrayList<User>>(gson, USER_PATH, users.getUsers()), INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
+            //periodically persists users and hotels data + sort and multicast notification
+            Runnable hotelPersister = new Persister<>(gson, HOTEL_PATH, hotels.getHotels());
+            scheduler.scheduleWithFixedDelay(hotelPersister, INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
+
+            Runnable userPersister = new Persister<ArrayList<User>>(gson, USER_PATH, users.getUsers());
+            scheduler.scheduleWithFixedDelay(userPersister, INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
+            
+            //This task sort HotelList and send a notification to multicast group 
+            Runnable sorter = new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA_MILLS);
+            scheduler.scheduleWithFixedDelay(sorter, INIT_DELAY, SORT_DELTA_MILLS, TimeUnit.MILLISECONDS);
 
 
             System.out.println("Server is running...");
 
-            //This thread sort HotelList and send a notification to multicast group 
-            msSender.start();
-
             while(true){
                 pool.execute(new Session(serverSocket.accept(), hotels, users, REVIEW_DELTA_DAYS));
-            }
+            }            
         } 
         catch(IOException e) {
             System.err.println(e.getMessage());
         }
         finally{
-            msSender.interrupt();
+            scheduler.shutdown();
             pool.shutdown();
         }
     }
