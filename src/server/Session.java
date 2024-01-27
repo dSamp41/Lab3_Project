@@ -1,3 +1,4 @@
+package src.server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +9,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import src.structures.Hotel;
+import src.structures.HotelList;
+import src.structures.Ratings;
+import src.structures.User;
+import src.structures.UserList;
 
 public class Session implements Runnable {
     private final long REVIEW_DELTA_DAYS;

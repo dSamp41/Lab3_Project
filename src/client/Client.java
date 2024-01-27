@@ -1,3 +1,4 @@
+package src.client;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,7 +10,6 @@ import java.net.MulticastSocket;
 import java.net.Socket;
 import java.util.Properties;
 
-//split main in ClientMain to improve testability
 public class Client {
     private static String SERVER_IP;
     private static int PORT;
@@ -42,6 +42,10 @@ public class Client {
                     if(userReq.equals("help")){
                         System.out.println(getHelpMessage(loggedIn));
                         continue;
+                    }
+
+                    if(userReq.equals("exit")){
+                        break;
                     }
                     
                     if(socket.isClosed()){      //check if the server is down before sending something

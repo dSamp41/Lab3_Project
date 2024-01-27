@@ -1,3 +1,4 @@
+package src.structures;
 public class Ratings{
     private float cleaning, position, services, quality;
 

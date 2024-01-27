@@ -1,5 +1,11 @@
+package src.server;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import src.structures.Hotel;
+import src.structures.HotelList;
+import src.structures.User;
+import src.structures.UserList;
 
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -67,7 +73,7 @@ public class Server {
             scheduler.scheduleWithFixedDelay(userPersister, INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
             
             //This task sort HotelList and send a notification to multicast group 
-            Runnable sorter = new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA_MILLS);
+            Runnable sorter = new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels);
             scheduler.scheduleWithFixedDelay(sorter, INIT_DELAY, SORT_DELTA_MILLS, TimeUnit.MILLISECONDS);
 
 

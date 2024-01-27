@@ -1,3 +1,4 @@
+package src.structures;
 import java.util.ArrayList;
 
 public class Hotel {
@@ -44,7 +45,12 @@ public class Hotel {
     public String toString(){
         String serviziDisp = String.join(", ", this.services);
 
-        return this.name + "\n" + this.description + "\n" + "Servizi disponibili: " + serviziDisp + "\n" + "Rate: " + rate + "\n\n";
+        return this.name + "\n" + this.description + "\n" 
+            + "Servizi disponibili: " + serviziDisp + "\n" 
+            + "Numero di telefono: " + this.phone + "\n"
+            + "Voto: " + rate + "\n" 
+            + "Average ratings: " + this.ratings.getRatingsAvg() + "\n" 
+            + "Numero recensioni: " + this.numReviews + "\n\n";
     }
 
     public void insertReview(float r, Ratings rtngs){

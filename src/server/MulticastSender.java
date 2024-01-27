@@ -1,3 +1,4 @@
+package src.server;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -5,18 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import src.structures.Hotel;
+import src.structures.HotelList;
+
 //This thread periodically sort HotelList. If the first position changes, it will notify multicast group
 public class MulticastSender implements Runnable {
     private String groupAddress;
     private int MS_PORT;
     private HotelList hotelList;
-    private long DELTA;
 
-    public MulticastSender(String groupAddress, int port, HotelList hotels, long delta){
+    public MulticastSender(String groupAddress, int port, HotelList hotels){
         this.groupAddress = groupAddress;
         this.MS_PORT = port;
         this.hotelList = hotels;
-        this.DELTA = delta;
     }
 
     public void run(){
