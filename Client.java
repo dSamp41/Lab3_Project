@@ -19,11 +19,7 @@ public class Client {
     
     private static final Object consoleLock = new Object();
     
-    private static final String configPath = "client.properties";
-    public static void main(String[] args) {
-
-        readConfig(configPath);
-
+    public void start() {
         try(Socket socket = new Socket(SERVER_IP, PORT);
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -109,7 +105,7 @@ public class Client {
         return helpString;
     }
 
-    public static void readConfig(String configPath) {
+    public void readConfig(String configPath) {
         try(FileInputStream input = new FileInputStream(configPath)) 
         {        
             Properties prop = new Properties();

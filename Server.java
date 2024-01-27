@@ -34,16 +34,7 @@ public class Server {
     private static Type hotelArrayType = new TypeToken<ConcurrentHashMap<String, ArrayList<Hotel>>>(){}.getType();//new TypeToken<ArrayList<Hotel>>(){}.getType();
     private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
 
-    private static String configPath = "server.properties";
-
-    //TODO: constructor to inject parameters
-    public Server(String configPath){
-        this.configPath = configPath;
-    }
-
-    public static void main(String[] args) {
-        readConfig(configPath);
-
+    public void start() {
         Gson gson = GsonFactory.get();
 
         //Setup hotels and users lists
@@ -68,7 +59,6 @@ public class Server {
         try(ServerSocket serverSocket = new ServerSocket(PORT);
             DatagramSocket msSocket = new DatagramSocket();
         ){
-            
             //periodically persists users and hotels data + sort and multicast notification
             Runnable hotelPersister = new Persister<>(gson, HOTEL_PATH, hotels.getHotels());
             scheduler.scheduleWithFixedDelay(hotelPersister, INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
@@ -96,7 +86,7 @@ public class Server {
         }
     }
 
-    public static void readConfig(String configPath) {
+    public void readConfig(String configPath) {
         try {
             FileInputStream input = new FileInputStream(configPath);
         
