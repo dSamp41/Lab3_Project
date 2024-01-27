@@ -201,7 +201,7 @@ public class Session implements Runnable {
         if(hotelsInCity.size() == 0){
             return "No hotel found in " + city;
         }
-        //TODO: orber by ranking; https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-propertyf
+
         String foundHotels = hotelsInCity.stream()
             .map(Hotel::toString)
             .collect(Collectors.joining(""));

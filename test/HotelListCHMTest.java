@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 
 public class HotelListCHMTest {
     private Hotel h0, h1, h2;
-    private HotelListCHM hotels;
+    private HotelList hotels;
 
     @Before
     public void setup(){
@@ -46,7 +46,7 @@ public class HotelListCHMTest {
         hs.add(h1);
         hs.add(h2);
 
-        hotels = new HotelListCHM();
+        hotels = new HotelList();
         hotels.addAll(hs);
     }
 

@@ -2,11 +2,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class HotelList {
-    private ArrayList<Hotel> hotels;
+    private ConcurrentHashMap<String, ArrayList<Hotel>> hotels;
 
     //Sorting
     /*
@@ -18,51 +19,61 @@ public class HotelList {
     */
 
     Comparator<Hotel> hotelComparator = Comparator
-        .comparing(Hotel::getCity).reversed()
-        .thenComparing(Hotel::getRate).reversed()
+        .comparing(Hotel::getRate)//.reversed()
         .thenComparing(Hotel::getRatingsAvg).reversed()
+        .thenComparing(Hotel::getNumReviews).reversed()
         .thenComparing(Hotel::getNumServices).reversed()
         .thenComparing(Hotel::getName);
 
     public HotelList(){
-        this.hotels = new ArrayList<>();
+        this.hotels = new ConcurrentHashMap<>();
     }
 
-    public ArrayList<Hotel> getHotels(){
-        return this.hotels;
+    public ConcurrentHashMap<String, ArrayList<Hotel>> getHotels(){
+        return hotels;
     }
 
     public void add(Hotel h){
-        hotels.add(h);
+        hotels.compute(h.getCity(), (key, arr) -> {
+            // If the key is not present, create a new ArrayList and add the hotel
+            if(arr == null) {
+                ArrayList<Hotel> newList = new ArrayList<>();
+                newList.add(h);
+                return newList;
+            } 
+            else {
+                // If the key is present, add the hotel to the existing ArrayList
+                arr.add(h);
+                return arr;
+            }
+        });
+        
     }
 
-    public void addAll(ArrayList<Hotel> h){
-        hotels.addAll(h);
+    public void addAll(ConcurrentHashMap<String, ArrayList<Hotel>> newHotels){
+        newHotels.forEach((k, arr) -> hotels.merge(k, arr, (a1, a2) -> {
+            a1.addAll(a2);
+            return a1;
+        }));
     }
 
     public List<Hotel> searchByCity(String city){
-        Predicate<Hotel> p = h -> (h.getCity().equals(city));
-
-        return hotels.stream().filter(p).collect(Collectors.toList());
+        return hotels.get(city);
     }
 
     public List<Hotel> searchByName(String name, String city){
-        Predicate<Hotel> p = h -> (h.getName().equals(name) && h.getCity().equals(city));
-        
-        return hotels.stream().filter(p).collect(Collectors.toList());
+        ArrayList<Hotel> hotelsInCity = hotels.get(city);
+
+        Predicate<Hotel> p = h -> (h.getName().equals(name));
+        return hotelsInCity.stream().filter(p).collect(Collectors.toList());
     }
 
 
     public ArrayList<Hotel> getFirstRanked(){
         ArrayList<Hotel> res = new ArrayList<>();
-        ArrayList<Hotel> sortedHotels = getSorted();
-
-        while(!sortedHotels.isEmpty()){
-            Hotel toAdd = sortedHotels.get(0);
-            res.add(toAdd);
-
-            Predicate<Hotel> p = h -> (h.getCity().equals(toAdd.getCity()));
-            sortedHotels.removeIf(p);
+        
+        for(ArrayList<Hotel> arr: hotels.values()){
+            res.add(arr.get(0));
         }
 
         return res;
@@ -70,12 +81,18 @@ public class HotelList {
 
     //sort and returns clone of this.hotels
     public ArrayList<Hotel> getSorted(){
-        ArrayList<Hotel> clonedHotels = new ArrayList<Hotel>(this.hotels);
-        Collections.sort(clonedHotels, hotelComparator);
+        ArrayList<Hotel> clonedHotels = new ArrayList<Hotel>();
+        
+        for(ArrayList<Hotel> arr: hotels.values()){
+            ArrayList<Hotel> a = new ArrayList<>(arr);
+            clonedHotels.addAll(a);
+        }
+
         return clonedHotels;
     }
 
     public void sort(){
-        Collections.sort(this.hotels, hotelComparator);
+        for(ArrayList<Hotel> arr: hotels.values())
+            Collections.sort(arr, hotelComparator);
     }
 }
