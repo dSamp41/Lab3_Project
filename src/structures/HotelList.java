@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -67,6 +68,17 @@ public class HotelList {
 
         Predicate<Hotel> p = h -> (h.getName().equals(name));
         return hotelsInCity.stream().filter(p).collect(Collectors.toList());
+    }
+
+    public Optional<List<Hotel>> searchByNameOPT(String name, String city){
+        Optional<ArrayList<Hotel>> hotelsInCity = Optional.ofNullable(hotels.get(city));
+
+        if(hotelsInCity.isEmpty()){
+            return Optional.empty();
+        }
+
+        Predicate<Hotel> p = h -> (h.getName().equals(name));
+        return Optional.ofNullable(hotelsInCity.get().stream().filter(p).collect(Collectors.toList()));
     }
 
 

@@ -52,7 +52,6 @@ public class Session implements Runnable {
         finally{
             System.out.println("A client left: " + clientSocket);
             if(isLogged) logout();
-            
         }
     }
 
@@ -205,6 +204,10 @@ public class Session implements Runnable {
     private String searchAllHotels(String city){
         List<Hotel> hotelsInCity = hotels.searchByCity(city);
 
+        if(hotelsInCity == null){
+            return "City not found";
+        }
+
         if(hotelsInCity.size() == 0){
             return "No hotel found in " + city;
         }
@@ -217,12 +220,18 @@ public class Session implements Runnable {
     }
 
     private String searchHotel(String name, String city){
-        List<Hotel> results = hotels.searchByName(name, city);
+        Optional<List<Hotel>> results = hotels.searchByNameOPT(name, city);
 
-        if(results.size() == 0){
+        if(results.isEmpty()){
+            return "City not found";
+        }
+
+        if(results.get().size() == 0){
             return "Searched hotel not found";
         }
-        return results.get(0).toString().replace("\n", "^");
+        String searchedHotel = results.get().get(0).toString();
+
+        return searchedHotel.replace("\n", "^");
     }
 
     private String showBadge(String username){
@@ -240,21 +249,23 @@ public class Session implements Runnable {
         else{
             LocalDate d = lastReviewDate.get();
 
-            if(ChronoUnit.DAYS.between(d, LocalDate.now()) < REVIEW_DELTA_DAYS){
+            if(ChronoUnit.DAYS.between(d, LocalDate.now()) < REVIEW_DELTA_DAYS){    //less then REVIEW_DELTA_DAYS are passed between the old review and the new one
                 return "You already inserted a recent review for this hotel.";
             }
-            currentUser.addReview(hotelName, LocalDate.now());
         }
                 
-        List<Hotel> searchedHotels = hotels.searchByName(hotelName, hotelCity);
-        if(searchedHotels.size() == 0){ 
+        Optional<List<Hotel>> searchedHotels = hotels.searchByNameOPT(hotelName, hotelCity);
+        
+        if(searchedHotels.isEmpty() || searchedHotels.get().size() == 0){ 
             return String.format("Hotel not found. The name <%s> or city <%s> is wrong", hotelName, hotelCity);
         }
 
-        //Hotel.insertReview()
-        Hotel selectedHotel = searchedHotels.get(0);
+        //insert review to the hotel
+        Hotel selectedHotel = searchedHotels.get().get(0);
         Ratings r = new Ratings(ratings[0], ratings[1], ratings[2], ratings[3]);
+
         selectedHotel.insertReview(globalRate, r);
+        currentUser.addReview(hotelName, LocalDate.now());
 
         return "The review has been successfully inserted";
     }
