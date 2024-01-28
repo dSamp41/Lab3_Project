@@ -46,9 +46,8 @@ public class Client {
                 }
 
                 if(userReq.equals("exit")){
-                    socket.close();
                     System.out.println("Bye bye...");
-                    break;
+                    System.exit(0);
                 }
                 
                 if(socket.isClosed()){      //check if the server is down before sending something

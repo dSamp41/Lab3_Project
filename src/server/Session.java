@@ -202,17 +202,17 @@ public class Session implements Runnable {
     }
 
     private String searchAllHotels(String city){
-        List<Hotel> hotelsInCity = hotels.searchByCity(city);
+        Optional<List<Hotel>> hotelsInCity = hotels.searchByCity(city);
 
-        if(hotelsInCity == null){
+        if(hotelsInCity.isEmpty()){
             return "City not found";
         }
 
-        if(hotelsInCity.size() == 0){
+        if(hotelsInCity.get().size() == 0){
             return "No hotel found in " + city;
         }
 
-        String foundHotels = hotelsInCity.stream()
+        String foundHotels = hotelsInCity.get().stream()
             .map(Hotel::toString)
             .collect(Collectors.joining(""));
         
@@ -220,7 +220,7 @@ public class Session implements Runnable {
     }
 
     private String searchHotel(String name, String city){
-        Optional<List<Hotel>> results = hotels.searchByNameOPT(name, city);
+        Optional<List<Hotel>> results = hotels.searchByName(name, city);
 
         if(results.isEmpty()){
             return "City not found";
@@ -254,7 +254,7 @@ public class Session implements Runnable {
             }
         }
                 
-        Optional<List<Hotel>> searchedHotels = hotels.searchByNameOPT(hotelName, hotelCity);
+        Optional<List<Hotel>> searchedHotels = hotels.searchByName(hotelName, hotelCity);
         
         if(searchedHotels.isEmpty() || searchedHotels.get().size() == 0){ 
             return String.format("Hotel not found. The name <%s> or city <%s> is wrong", hotelName, hotelCity);

@@ -59,18 +59,11 @@ public class HotelList {
         }));
     }
 
-    public List<Hotel> searchByCity(String city){
-        return hotels.get(city);
+    public Optional<List<Hotel>> searchByCity(String city){
+        return Optional.ofNullable(hotels.get(city));
     }
 
-    public List<Hotel> searchByName(String name, String city){
-        ArrayList<Hotel> hotelsInCity = hotels.get(city);
-
-        Predicate<Hotel> p = h -> (h.getName().equals(name));
-        return hotelsInCity.stream().filter(p).collect(Collectors.toList());
-    }
-
-    public Optional<List<Hotel>> searchByNameOPT(String name, String city){
+    public Optional<List<Hotel>> searchByName(String name, String city){
         Optional<ArrayList<Hotel>> hotelsInCity = Optional.ofNullable(hotels.get(city));
 
         if(hotelsInCity.isEmpty()){
