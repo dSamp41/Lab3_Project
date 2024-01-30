@@ -145,13 +145,24 @@ public class Session implements Runnable {
                     break;
                 }
 
+                
                 String hotelName = String.format("%s %s %s", input[1], input[2], input[3]);
                 String hotelCity = input[4];
                 int globalRate = Integer.parseInt(input[5]);
                 int[] ratings = {Integer.parseInt(input[6]), Integer.parseInt(input[7]), Integer.parseInt(input[8]), Integer.parseInt(input[8])};
+                
+                boolean globalRateValid = isValidRate(globalRate);
+                boolean ratingsValid = isValidRate(ratings[0]) && isValidRate(ratings[1]) && isValidRate(ratings[2]) && isValidRate(ratings[3]);
+                boolean allRatesValid = globalRateValid && ratingsValid;
 
-                out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
-                break;
+                if(allRatesValid){
+                    out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
+                    break;
+                }
+                else{
+                    out.println("All rates must be between 1 and 5");
+                    break;
+                }
 
             default:
                 out.printf("Unknown command <%s>\n", op);
@@ -269,4 +280,9 @@ public class Session implements Runnable {
 
         return "The review has been successfully inserted";
     }
+
+    private boolean isValidRate(int n){
+        return (1 <= n) && (n <= 5);
+    }
+
 }

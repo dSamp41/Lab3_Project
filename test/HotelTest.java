@@ -82,7 +82,7 @@ public class HotelTest {
         h1.insertReview(5, new Ratings(5, 5, 5, 5));
         
         hotelList.sort();
-        assertEquals(h0, hotelList.searchByCity(h0.getCity()).get(0));
+        assertEquals(h0, hotelList.searchByCity(h0.getCity()).get().get(0));
     }
 
     @Test

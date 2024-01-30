@@ -49,7 +49,6 @@ public class Server {
         HotelList hotels = new HotelList();
         UserList users = new UserList();
 
-        //TODO: test if file do not exist
         try(FileReader hotelReader = new FileReader(HOTEL_PATH);
             FileReader userReader = new FileReader(USER_PATH))
         {
