@@ -72,7 +72,7 @@ public class Server {
 
             Runnable userPersister = new Persister<>(gson, USER_PATH, users.getUsers());
             scheduler.scheduleWithFixedDelay(userPersister, INIT_DELAY, SERIALIZE_USER_DELAY_MINS, UNIT);
-            
+
             //This task sort HotelList and send a notification to multicast group 
             Runnable sorter = new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels);
             scheduler.scheduleWithFixedDelay(sorter, INIT_DELAY, SORT_DELTA_MILLS, TimeUnit.MILLISECONDS);

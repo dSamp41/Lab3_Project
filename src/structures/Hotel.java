@@ -73,35 +73,9 @@ public class Hotel {
             return newVal;
         }
         
-        float alpha = (float) 0.2;
+        float alpha = (float) 0.3;
         float res = (1-alpha) * oldVal + (alpha * newVal);
         
         return res;
     }
-
-    public float getScore(){
-        return this.rate + getRatingsAvg() + numReviews;
-    }
 }
-
-
-
-/*
-"id": 1,
-"name": "Hotel Aosta 1",
-"description": "Un ridente hotel a Aosta, in Via della gioia, 25",
-"city": "Aosta",
-"phone": "347-4453634",
-"services": [
-    "TV in camera",
-    "Palestra",
-    "Cancellazione gratuita"
-],
-"rate": 0,
-"ratings": {
-    "cleaning": 0,
-    "position": 0,
-    "services": 0,
-    "quality": 0
-}
-*/

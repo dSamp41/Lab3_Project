@@ -160,7 +160,7 @@ public class Session implements Runnable {
                     break;
                 }
                 else{
-                    out.println("All rates must be between 1 and 5");
+                    out.println("All rates must be between 0 and 5");
                     break;
                 }
 
@@ -282,7 +282,7 @@ public class Session implements Runnable {
     }
 
     private boolean isValidRate(int n){
-        return (1 <= n) && (n <= 5);
+        return (0 <= n) && (n <= 5);
     }
 
 }
