@@ -53,7 +53,12 @@ logout
 ## Searching
 
 searchAllHotels &lt;città&gt;  
-searchHotel &lt;nome&gt; &lt;città&gt;
+searchHotel "&lt;nome&gt;" &lt;città&gt;
+
+# Review insertion
+
+insertReview "&lt;nome&gt;" &lt;città&gt; &lt;voto globale&gt; &lt;ratings 1&gt;  &lt;ratings 2&gt;  &lt;ratings 3&gt;  &lt;ratings 4&gt;
+
 
 ## Help
 

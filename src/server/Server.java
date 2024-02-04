@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,7 +39,7 @@ public class Server {
 
     private static long SORT_DELTA_MILLS;
     
-    private static Type hotelArrayType = new TypeToken<ConcurrentHashMap<String, ArrayList<Hotel>>>(){}.getType();//new TypeToken<ArrayList<Hotel>>(){}.getType();
+    private static Type hotelArrayType = new TypeToken<ConcurrentHashMap<String, CopyOnWriteArrayList<Hotel>>>(){}.getType();//new TypeToken<ArrayList<Hotel>>(){}.getType();
     private static Type userArrayType = new TypeToken<SortedMap<String, User>>(){}.getType();
 
     public void start() {

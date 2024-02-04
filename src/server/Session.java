@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -110,14 +111,15 @@ public class Session implements Runnable {
                 break;
 
             case "searchHotel":
-                if(input.length != 5){
+                String[] inputParts = in.split("\"");
+                if(inputParts.length != 3){
                     out.println("Too much or too little args");
                     break;
-                }                
-                
-                String name = input[1] + " " + input[2] + " " + input[3];
-                out.println(searchHotel(name, input[4]));
-                
+                }
+
+                String name = inputParts[1];
+                String city = inputParts[2].replaceFirst(" ", "");
+                out.println(searchHotel(name, city));
                 break;
             
             case "showBadge":
@@ -134,23 +136,32 @@ public class Session implements Runnable {
                 break;
 
             case "insertReview":
-            //insertReview Hotel Roma 1 Roma 5 4 4 4 4
-                if(input.length != 10){
-                    out.println("Too much or too little args");
-                    break;
-                }
-
                 if(!isLogged){
                     out.println("You must be logged in to insert a review");
                     break;
                 }
 
-                
-                String hotelName = String.format("%s %s %s", input[1], input[2], input[3]);
-                String hotelCity = input[4];
-                int globalRate = Integer.parseInt(input[5]);
-                int[] ratings = {Integer.parseInt(input[6]), Integer.parseInt(input[7]), Integer.parseInt(input[8]), Integer.parseInt(input[8])};
-                
+                //insertReview "Hotel Roma 1" Roma 5 4 4 4 4
+                String[] parts = in.split("\"");
+
+                String hotelName = parts[1];
+                String[] cityAndRates = parts[2]
+                    .replaceFirst(" ", "")
+                    .split(" ");
+
+                if(cityAndRates.length != 6){
+                    out.println("Too much or too little args");
+                    break;
+                }
+
+                String hotelCity = cityAndRates[0];
+                int globalRate = Integer.parseInt(cityAndRates[1]);
+
+                String[] rtngs = {cityAndRates[2], cityAndRates[3], cityAndRates[4], cityAndRates[5]};
+                int[] ratings = Arrays.stream(rtngs)
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+
                 boolean globalRateValid = isValidRate(globalRate);
                 boolean ratingsValid = isValidRate(ratings[0]) && isValidRate(ratings[1]) && isValidRate(ratings[2]) && isValidRate(ratings[3]);
                 boolean allRatesValid = globalRateValid && ratingsValid;
