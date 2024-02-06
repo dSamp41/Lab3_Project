@@ -43,6 +43,6 @@ public class Persister<T> implements Runnable {
             System.err.println(e.getMessage());
         }
 
-        System.out.println("Serialization was successful");
+        System.out.println(s + "Serialization was successful");
     }
 }

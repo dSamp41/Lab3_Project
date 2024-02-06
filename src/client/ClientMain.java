@@ -7,5 +7,4 @@ public class ClientMain {
         client.readConfig(clientConfigPath);
         client.start();
     }
-    
 }
