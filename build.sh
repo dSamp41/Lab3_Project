@@ -2,4 +2,8 @@
 
 cd build
 jar cfe client.jar src.client.ClientMain src/client/*.class
-jar cfe server.jar src.server.ServerMain src/server/*.class src/structures/*.class ../lib/gson-2.10.1.jar
+#jar cfm server.jar serverManifest.txt src/server/*.class src/structures/*.class gson-2.10.1.jar
+./buildServer.sh
+
+mv client.jar ../artifacts
+mv server.jar ../artifacts
