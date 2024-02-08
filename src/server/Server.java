@@ -77,6 +77,23 @@ public class Server {
             Runnable sorter = new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels);
             scheduler.scheduleWithFixedDelay(sorter, INIT_DELAY, SORT_DELTA_MILLS, TimeUnit.MILLISECONDS);
 
+            //Final operation when the server is interrupted: no new client, serialize structures
+            Runtime.getRuntime().addShutdownHook(new Thread()
+            {
+                @Override
+                public void run()
+                {
+                    System.out.println("Shutting down");
+                    pool.close();
+                    pool.shutdown();
+
+                    scheduler.schedule(hotelPersister, INIT_DELAY, UNIT);
+                    scheduler.schedule(userPersister, INIT_DELAY, UNIT);
+                    scheduler.close();
+                    scheduler.shutdown();
+                }
+            });
+
 
             System.out.println("Server is running...");
 
@@ -115,5 +132,16 @@ public class Server {
             System.err.println(e.getMessage());
             System.exit(-1);
         }        
+    }
+
+    private void prepareGracefulShutdown(){
+        Runtime.getRuntime().addShutdownHook(new Thread()
+        {
+            @Override
+            public void run()
+            {
+                System.out.println("Shutdown hook ran!");
+            }
+        });
     }
 }

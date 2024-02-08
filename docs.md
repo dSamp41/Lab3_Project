@@ -1,4 +1,5 @@
-# Strutture dati
+# Struttura
+## Strutture dati
 Le principali strutture dati usate sono *HotelList* e *UserList*.
 
 **_HotelList_** è usata per memorizzare le informazioni relativi agli hotel. Costituisce un wrapper attorno ad una ConcurrentHashMap, in aggiunta a dei metodi per effettuare operazioni utili come il riordinamento o la ricerca per nome e/o città, oppure per ottenere informazioni di interesse come i primi hotel classificati nei vari ranking locali.
@@ -9,7 +10,6 @@ Anchè l'ordinamento stesso dell'ArrayList sarebbe stato troppo costoso e di com
 Ho scelto di usare una ConcurrentHashMap come struttura alla base per risolvere questi problemi. Come chiave ho scelto la città dove l'hotel è situato, mentre il valore è un CopyOnWriteArrayList di Hotel situati nella città, lista che costituisce il ranking locale. 
 
 Ho scelto un CopyOnWriteArrayList, invece di un normale ArrayList, dato che il primo è adatto a contesti in cui più thread accedono alla struttura. In ottica di scalabilità, con molti client è decisamente più probabile che le operazioni di ricerca (lettura) siano numericamente superiori a quelle di inserimento (modifica).
-
 
 Con questa struttura la ricerca per città è molto più efficiente, dell'ordine di *O(1)* dato che non possono esistere conflitti di chiave. 
 
@@ -27,12 +27,12 @@ Un discorso simile vale anche per **_UserList_**. La struttura ha lo scopo di me
 
 Dato che ho imposto l'username sia univoco, non serve preoccuparsi di eventuali conflitti di chiave.
 
-# Struttura del server
+## Struttura del server
 Sul server sono presenti due ThreadPool: un *CachedThreadPool* responsabile di gestire i client accettati ed uno *ScheduledThreadPool* responsabile di eseguire periodicamente la serializazione di hotel ed utenti, oltre al riordino dei ranking locali e l'eventuale notifica in multicast.
 
 Per ogni client viene attivato un task *Session* che si occupa di soddisfare le richieste di quello specifico client.
 
-# Struttura del client
+## Struttura del client
 A differenza del server, la struttura del client è molto più semplice e leggera. Il main thread si occupa dell'interazione utente: accogliere le richieste, inviarle al server e stampare il risultato. Un secondo thread viene attivato dopo il login dell'utente ed è all'ascolto di eventuali notifiche multicast, stampate non appena possibile l'accesso alla console.
 
 
@@ -55,17 +55,28 @@ logout
 searchAllHotels &lt;città&gt;  
 searchHotel "&lt;nome&gt;" &lt;città&gt;
 
-# Review insertion
+## Review insertion
 
 insertReview "&lt;nome&gt;" &lt;città&gt; &lt;voto globale&gt; &lt;ratings 1&gt;  &lt;ratings 2&gt;  &lt;ratings 3&gt;  &lt;ratings 4&gt;
 
 
 ## Help
+Scrivendo *help*, l'utente può leggere la lista di comandi che può inserire, lista che riflette i comandi che solo un utente loggato può eseguire.
 
 # Scelte di design
 
-L'algoritmo sceeto per ricalcolare il voto dopo aver inserito una recensione è una *Exponential Moving Average (EMA)*: r<sub>next</sub> = α \* r<sub>inserted</sub> + (1-α) \* r<sub>prev</sub> , con α scelto pari a 0.3 per non causare sbalzi troppo repentini.
+## Inserimento recensione
+L'algoritmo scelto per ricalcolare il voto dopo aver inserito una recensione è una *Exponential Moving Average (EMA)*, in modo tale da dare più peso al
+valore delle recensioni più recenti: $r_{next} = (1-α) \cdot r_{prev} + α \cdot r_{inserted}$ , con α scelto pari a 0.3 per non causare sbalzi troppo repentini.
 
-L'ordinamento invece è basto su....
+## Algoritmo di ranking
+Per l'ordinamento, l'idea iniziale prevedeva un semplicissimo ordinamento per voto globale, media dei singoli ratings e numero di recensioni; tuttavia con questo meccanismo un hotel con voti medi 4.9 e 1000 recensioni, sarebbe stato inferiore ad uno con voti medi 5 ma una singola recensione.
 
-- Multicast sender-receiver come thread separati
+La scelta finale è ricaduta su uno *score interval* che dipende dal numero di recensioni. In particolare si determina l'intervallo $[r \pm w_{r} \frac{1}{numReviews}]$ sia per il *global rate* che per la media dei *ratings*, e come score si prende la media aritmetica dei lower bound di entrambi gli intervalli.
+
+Il coefficiente $w_{r}$ è scelto pari a 1.5 affinchè poche recensioni causino un maggior discostamento dal voto medio.
+
+## Multicast 
+I componenti che si occupano di inviare e ricevere le notifiche multicast sono thread separati rispettivamente da server e client, poichè se facenti parte dei rispettivi main thread, avrebbero provocato problemi di sincronizzazione nel modello request-response.
+
+Una possibile soluzione sarebbe stata l'invio di un messaggio "vuoto" che il client avrebbe ricevuto ma non stampato. Tale soluzione non è elegante e avrebbe causato l'invio di troppi messaggi inutili ad ogni iterazione.

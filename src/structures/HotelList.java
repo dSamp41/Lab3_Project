@@ -22,9 +22,7 @@ public class HotelList {
     */
 
     Comparator<Hotel> hotelComparator = Comparator
-        .comparing(Hotel::getRate)//.reversed()
-        .thenComparing(Hotel::getRatingsAvg).reversed()
-        .thenComparing(Hotel::getNumReviews).reversed()
+        .comparing(Hotel::getScore)
         .thenComparing(Hotel::getNumServices).reversed()
         .thenComparing(Hotel::getName);
 

@@ -22,7 +22,6 @@ public class Persister<T> implements Runnable {
     }
 
     public void run(){
-        //TODO: remove s
         String s = "";
         if(path.contains("Users")) s = "<Users> ";
         if(path.contains("Hotels")) s = "<Hotels> ";
