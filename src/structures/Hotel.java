@@ -82,8 +82,10 @@ public class Hotel {
     //scoring is a confidence interval [rate +/- 1/numReviews] ==> sorting based on lower bound
     public float getScore(){
         Float reviewsWeight = Float.parseFloat("1.5");
+
         float rateScore = rate - reviewsWeight * 1/numReviews;
         float ratingsScore = ratings.getRatingsAvg() - reviewsWeight * 1/numReviews;
+        
         return (rateScore + ratingsScore)/2;
     }
 }

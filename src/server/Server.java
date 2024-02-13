@@ -7,6 +7,8 @@ import src.structures.HotelList;
 import src.structures.User;
 import src.structures.UserList;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -49,8 +51,8 @@ public class Server {
         HotelList hotels = new HotelList();
         UserList users = new UserList();
 
-        try(FileReader hotelReader = new FileReader(HOTEL_PATH);
-            FileReader userReader = new FileReader(USER_PATH))
+        try(BufferedReader hotelReader = new BufferedReader(new FileReader(HOTEL_PATH));
+            BufferedReader userReader = new BufferedReader(new FileReader(USER_PATH)))
         {
             hotels.addAll(gson.fromJson(hotelReader, hotelArrayType));
             users.addAll(gson.fromJson(userReader, userArrayType));
@@ -112,7 +114,7 @@ public class Server {
 
     public void readConfig(String configPath) {
         try {
-            FileInputStream input = new FileInputStream(configPath);
+            BufferedInputStream input = new BufferedInputStream(new FileInputStream(configPath));
         
             Properties prop = new Properties();
             prop.load(input);

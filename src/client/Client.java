@@ -1,4 +1,5 @@
 package src.client;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,7 +48,7 @@ public class Client {
 
                 if(userReq.equals("exit")){
                     System.out.println("Bye bye...");
-                    System.exit(0);
+                    System.exit(0);     //closes also msSniffer
                 }
                 
                 if(socket.isClosed()){      //check if the server is down before sending something
@@ -111,7 +112,7 @@ public class Client {
     }
 
     public void readConfig(String configPath) {
-        try(FileInputStream input = new FileInputStream(configPath)) 
+        try(BufferedInputStream input = new BufferedInputStream(new FileInputStream(configPath))) 
         {        
             Properties prop = new Properties();
             prop.load(input);
