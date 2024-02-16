@@ -22,20 +22,22 @@ public class MulticastSender implements Runnable {
     }
 
     public void run(){
+        System.out.println("Sorting hotels");
+
         ArrayList<Hotel> oldFirst, newFirst;
-        
         oldFirst = hotelList.getFirstRanked();   //ottieni primi in ranking locali [vecchi]
         
         hotelList.sort();
-        newFirst = hotelList.getFirstRanked();  //ottieni primi in ranking locali [nuovi]
+        newFirst = hotelList.getFirstRanked();   //ottieni primi in ranking locali [nuovi]
         
         ArrayList<Hotel> delta = new ArrayList<>(newFirst);
         delta.removeAll(oldFirst);
         
-        List<String> deltaName = delta.stream().map(h -> h.getName()).collect(Collectors.toList());
+        List<String> deltaName = delta.stream()
+            .map(h -> h.getName())
+            .collect(Collectors.toList());
         System.out.println("New hotels: " + deltaName);
         
-        System.out.println("<PacketSend thread> Sorting HotelList");
         
         if(!newFirst.equals(oldFirst)){
             try(DatagramSocket msSocket = new DatagramSocket()){
@@ -46,7 +48,6 @@ public class MulticastSender implements Runnable {
                 msSocket.send(packet);
                 
                 System.out.println(msg);
-                System.out.println("MULTICASTIN' TIME BABY!!");
             }
             catch(Exception e){
                 System.err.println(e.getMessage());
@@ -55,7 +56,5 @@ public class MulticastSender implements Runnable {
         else{
             System.out.println("No new first hotels");
         }
-
-        oldFirst = newFirst;          
     }
 }

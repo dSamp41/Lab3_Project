@@ -41,10 +41,11 @@ public class Session implements Runnable {
         try(BufferedReader fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter toClient = new PrintWriter(clientSocket.getOutputStream(), true)) 
         {
-            String inputLine;
+            String inputLine, response;
 
             while((inputLine = fromClient.readLine()) != null){
-                processCommand(inputLine, toClient);
+                response = processCommand(inputLine);
+                toClient.println(response);
             }
         } 
         catch (Exception e) {
@@ -57,7 +58,7 @@ public class Session implements Runnable {
     }
 
     //read input from in; write output to out
-    private void processCommand(String in, PrintWriter out) throws IOException{
+    private String processCommand(String in) throws IOException{
         String[] input = in.split(" ");
         String op = input[0];
 
@@ -66,79 +67,64 @@ public class Session implements Runnable {
         switch(op) {
             case "register":
                 if(input.length != 3){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
 
                 String pwHash = User.getMD5Hash(input[2]);
                 String registrationStatus = register(input[1], pwHash);
-                out.println(registrationStatus);
+                return registrationStatus;
                 
-                break;
 
             case "login":
                 if(input.length != 3){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
                 
                 String pw_hash = User.getMD5Hash(input[2]);
                 String loginStatus = login(input[1], pw_hash);
-                out.println(loginStatus);
-
-                break;
+                return (loginStatus);
 
             case "logout":
                 if(input.length != 1){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
                 if(!isLogged){
-                    out.println("Not logged in");
-                    break;
+                    return ("Not logged in");
                 }
 
-                out.println(logout());
-                break;
+                String logoutStatus = logout();
+                return logoutStatus;
                 
             case "searchAllHotels":
                 if(input.length != 2){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
                 
-                out.println(searchAllHotels(input[1]));
-                break;
+                return searchAllHotels(input[1]);
 
             case "searchHotel":
                 String[] inputParts = in.split("\"");
                 if(inputParts.length != 3){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
 
                 String name = inputParts[1];
                 String city = inputParts[2].replaceFirst(" ", "");
-                out.println(searchHotel(name, city));
-                break;
+                return searchHotel(name, city);
             
             case "showBadge":
                 if(input.length != 1){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
                 if(!isLogged){
-                    out.println("You must be logged in to see your badge");
-                    break;
+                    return "You must be logged in to see your badge";
                 }
 
-                out.println(showBadge(username));
-                break;
+                return showBadge(username);
 
             case "insertReview":
                 if(!isLogged){
-                    out.println("You must be logged in to insert a review");
-                    break;
+                    return "You must be logged in to insert a review";
                 }
 
                 //insertReview "Hotel Roma 1" Roma 5 4 4 4 4
@@ -150,8 +136,7 @@ public class Session implements Runnable {
                     .split(" ");
 
                 if(cityAndRates.length != 6){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
 
                 String hotelCity = cityAndRates[0];
@@ -167,17 +152,14 @@ public class Session implements Runnable {
                 boolean allRatesValid = globalRateValid && ratingsValid;
 
                 if(allRatesValid){
-                    out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
-                    break;
+                    return insertReview(hotelName, hotelCity, globalRate, ratings);
                 }
                 else{
-                    out.println("All rates must be between 0 and 5");
-                    break;
+                    return "All rates must be between 0 and 5";
                 }
 
             default:
-                out.printf("Unknown command <%s>\n", op);
-                break;
+                return "Unknown command <" + op + ">";
         }
     }
 
