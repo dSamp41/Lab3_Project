@@ -12,6 +12,7 @@ public class UserList {
     private SortedMap<String, User> users;
 
     public UserList(){
+        //Conditionally Thread Safety sufficiente: funzioni coinvolgono solo una operazione alla volta
         this.users = Collections.synchronizedSortedMap(new TreeMap<String, User>());
     }
 

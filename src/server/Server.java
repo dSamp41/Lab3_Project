@@ -135,15 +135,4 @@ public class Server {
             System.exit(-1);
         }        
     }
-
-    private void prepareGracefulShutdown(){
-        Runtime.getRuntime().addShutdownHook(new Thread()
-        {
-            @Override
-            public void run()
-            {
-                System.out.println("Shutdown hook ran!");
-            }
-        });
-    }
 }
