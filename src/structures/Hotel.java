@@ -48,8 +48,11 @@ public class Hotel {
         return this.name + "\n" + this.description + "\n" 
             + "Servizi disponibili: " + serviziDisp + "\n" 
             + "Numero di telefono: " + this.phone + "\n"
-            + "Voto: " + rate + "\n" 
-            + "Average ratings: " + this.ratings.getRatingsAvg() + "\n" 
+            + "Voto: " + rate + "\n"  
+            + "Pulizia: " + ratings.getCleaning() + "\n"
+            + "Posizione: " + ratings.getPosition() + "\n"
+            + "Servizi: " + ratings.getServices() + "\n"
+            + "Qualità: " + ratings.getQuality() + "\n"
             + "Numero recensioni: " + this.numReviews + "\n\n";
     }
 

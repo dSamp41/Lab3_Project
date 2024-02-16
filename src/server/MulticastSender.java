@@ -25,12 +25,12 @@ public class MulticastSender implements Runnable {
         System.out.println("Sorting hotels");
 
         ArrayList<Hotel> oldFirst, newFirst;
-        oldFirst = hotelList.getFirstRanked();   //ottieni primi in ranking locali [vecchi]
+        oldFirst = hotelList.getFirstRanked();   //get first hotel for each local ranking (old)
         
         hotelList.sort();
-        newFirst = hotelList.getFirstRanked();   //ottieni primi in ranking locali [nuovi]
+        newFirst = hotelList.getFirstRanked();   //get first hotel for each local ranking (new)
         
-        ArrayList<Hotel> delta = new ArrayList<>(newFirst);
+        ArrayList<Hotel> delta = new ArrayList<>(newFirst);     //delta contains all new hotels
         delta.removeAll(oldFirst);
         
         List<String> deltaName = delta.stream()
