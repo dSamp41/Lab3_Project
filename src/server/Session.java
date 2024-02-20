@@ -199,10 +199,15 @@ public class Session implements Runnable {
     }
 
     private String logout(){
-        this.isLogged = false;
-        this.username = "";
-
-        return "Logout successful";
+        if(this.isLogged == true){
+            this.isLogged = false;
+            this.username = "";
+            
+            return "Logout successful";
+        }
+        else{
+            return "Not logged in";
+        }
     }
 
     private String searchAllHotels(String city){

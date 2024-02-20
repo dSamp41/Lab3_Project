@@ -76,7 +76,7 @@ public class Hotel {
             return newVal;
         }
         
-        float alpha = (float) 0.3;
+        float alpha = (float) 0.2;
         float res = (1-alpha) * oldVal + (alpha * newVal);
         
         return res;
