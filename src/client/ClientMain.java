@@ -1,3 +1,4 @@
+package src.client;
 public class ClientMain {
     public static void main(String[] args) {
         String clientConfigPath = "client.properties";
@@ -6,5 +7,4 @@ public class ClientMain {
         client.readConfig(clientConfigPath);
         client.start();
     }
-    
 }

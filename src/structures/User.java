@@ -1,8 +1,10 @@
+package src.structures;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 //0,5,10,20,50
 enum Badge {
@@ -27,14 +29,14 @@ public class User {
     private String username;
     private String pwdHash;
     private Badge badge;
-    private int reviewCount;
+    private AtomicInteger reviewCount;
     private HashMap<String, LocalDate> lastInsertedReviews;
 
     public User(String u, String p){
         this.username = u;
         this.pwdHash = p;
         this.badge = Badge.A;
-        this.reviewCount = 0;
+        this.reviewCount = new AtomicInteger(0);
         this.lastInsertedReviews = new HashMap<>();
     }
 
@@ -71,7 +73,7 @@ public class User {
 
     public void addReview(String hotelName, LocalDate date){
         lastInsertedReviews.put(hotelName, date);
-        reviewCount++;
+        reviewCount.incrementAndGet();
         updateBadge();
     }
 
@@ -80,16 +82,16 @@ public class User {
     }
     
     private void updateBadge(){
-        if(reviewCount < 5){
+        if(reviewCount.get() < 5){
             badge = Badge.A;
         }
-        else if(reviewCount < 10){
+        else if(reviewCount.get() < 10){
             badge = Badge.B;
         }
-        else if(reviewCount < 20){
+        else if(reviewCount.get() < 20){
             badge = Badge.C;
         }
-        else if(reviewCount < 50){
+        else if(reviewCount.get() < 50){
             badge = Badge.D;
         }
         else{

@@ -1,3 +1,5 @@
+package src.client;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,7 +11,6 @@ import java.net.MulticastSocket;
 import java.net.Socket;
 import java.util.Properties;
 
-//split main in ClientMain to improve testability
 public class Client {
     private static String SERVER_IP;
     private static int PORT;
@@ -35,22 +36,27 @@ public class Client {
             System.out.println(getHelpMessage(false));
 
             while(true){
-                synchronized(consoleLock){
+                synchronized(consoleLock){      //use synchronized to avoid conflict in printing something received in multicast
                     System.out.println("\nInsert text: ");
                     userReq = userInput.readLine();
-
-                    if(userReq.equals("help")){
-                        System.out.println(getHelpMessage(loggedIn));
-                        continue;
-                    }
-                    
-                    if(socket.isClosed()){      //check if the server is down before sending something
-                        System.out.println("The server is down. Disconetting...");
-                        break;
-                    }
-
-                    toServer.println(userReq);
                 }
+
+                if(userReq.equals("help")){
+                    System.out.println(getHelpMessage(loggedIn));
+                    continue;
+                }
+
+                if(userReq.equals("exit")){
+                    System.out.println("Bye bye...");
+                    System.exit(0);     //closes also msSniffer
+                }
+                
+                if(socket.isClosed()){      //check if the server is down before sending something
+                    System.out.println("The server is down. Disconetting...");
+                    break;
+                }
+
+                toServer.println(userReq);
 
                 serverRsp = fromServer.readLine();
                 if(serverRsp == null){
@@ -61,7 +67,7 @@ public class Client {
                 serverRsp = serverRsp.replace("^", "\n");
                 System.out.println("Server: " + serverRsp);
 
-                if(serverRsp.equals("Successfully logged in")){     //User is logged in
+                if(serverRsp.equals("Successfully logged in")){     //User is logged in; can receive multicast notifications
                     loggedIn = true;
 
                     //Start multicast sniffer
@@ -69,7 +75,7 @@ public class Client {
                     System.out.println("Started receive");
                 }
 
-                if(serverRsp.equals("Logout successful")){     //User is logged out
+                if(serverRsp.equals("Logout successful")){     //User is logged out; can't receive multicast notifications
                     loggedIn = false;
                     msSniffer.interrupt();
                 }
@@ -89,7 +95,7 @@ public class Client {
     }
 
     private static String getHelpMessage(boolean isLoggedIn){
-        String baseString = "Welcome, these are your actions: help, searchAllHotels, searchHotel, ";
+        String baseString = "Welcome, these are your actions: help, exit, searchAllHotels, searchHotel, ";
         String notLoggedInActions = "register, login";
         String loggedInActions = "showBadge, insertReview, logout";
 
@@ -106,7 +112,7 @@ public class Client {
     }
 
     public void readConfig(String configPath) {
-        try(FileInputStream input = new FileInputStream(configPath)) 
+        try(BufferedInputStream input = new BufferedInputStream(new FileInputStream(configPath))) 
         {        
             Properties prop = new Properties();
             prop.load(input);

@@ -1,3 +1,4 @@
+package src.structures;
 import java.util.ArrayList;
 
 public class Hotel {
@@ -44,7 +45,15 @@ public class Hotel {
     public String toString(){
         String serviziDisp = String.join(", ", this.services);
 
-        return this.name + "\n" + this.description + "\n" + "Servizi disponibili: " + serviziDisp + "\n" + "Rate: " + rate + "\n\n";
+        return this.name + "\n" + this.description + "\n" 
+            + "Servizi disponibili: " + serviziDisp + "\n" 
+            + "Numero di telefono: " + this.phone + "\n"
+            + "Voto: " + rate + "\n"  
+            + "Pulizia: " + ratings.getCleaning() + "\n"
+            + "Posizione: " + ratings.getPosition() + "\n"
+            + "Servizi: " + ratings.getServices() + "\n"
+            + "Qualità: " + ratings.getQuality() + "\n"
+            + "Numero recensioni: " + this.numReviews + "\n\n";
     }
 
     public void insertReview(float r, Ratings rtngs){
@@ -73,29 +82,14 @@ public class Hotel {
         return res;
     }
 
+    //scoring is a confidence interval [rate +/- 1/numReviews] ==> sorting based on lower bound
     public float getScore(){
-        return this.rate + getRatingsAvg() + numReviews;
+        if(numReviews == 0) return 0;
+        Float reviewsWeight = Float.parseFloat("1.5");
+
+        float rateScore = rate - reviewsWeight * 1/numReviews;
+        float ratingsScore = ratings.getRatingsAvg() - reviewsWeight * 1/numReviews;
+        
+        return (rateScore + ratingsScore)/2;
     }
 }
-
-
-
-/*
-"id": 1,
-"name": "Hotel Aosta 1",
-"description": "Un ridente hotel a Aosta, in Via della gioia, 25",
-"city": "Aosta",
-"phone": "347-4453634",
-"services": [
-    "TV in camera",
-    "Palestra",
-    "Cancellazione gratuita"
-],
-"rate": 0,
-"ratings": {
-    "cleaning": 0,
-    "position": 0,
-    "services": 0,
-    "quality": 0
-}
-*/

@@ -1,3 +1,4 @@
+package src.server;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,7 +22,6 @@ public class Persister<T> implements Runnable {
     }
 
     public void run(){
-        //TODO: remove s
         String s = "";
         if(path.contains("Users")) s = "<Users> ";
         if(path.contains("Hotels")) s = "<Hotels> ";
@@ -42,6 +42,6 @@ public class Persister<T> implements Runnable {
             System.err.println(e.getMessage());
         }
 
-        System.out.println("Serialization was successful");
+        System.out.println(s + "Serialization was successful");
     }
 }

@@ -1,15 +1,24 @@
+package src.server;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import src.structures.Hotel;
+import src.structures.HotelList;
+import src.structures.User;
+import src.structures.UserList;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.DatagramSocket;
 import java.net.ServerSocket;
-import java.util.ArrayList;
 import java.util.Properties;
+import java.util.SortedMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -22,7 +31,8 @@ public class Server {
     
     private static final int INIT_DELAY = 0;
     
-    private static int SERIALIZE_DELAY_MINS;
+    private static int SERIALIZE_HOTEL_DELAY_MINS;
+    private static int SERIALIZE_USER_DELAY_MINS;
     private static final TimeUnit UNIT = TimeUnit.MINUTES;
 
     private static long REVIEW_DELTA_DAYS;
@@ -31,8 +41,8 @@ public class Server {
 
     private static long SORT_DELTA_MILLS;
     
-    private static Type hotelArrayType = new TypeToken<ConcurrentHashMap<String, ArrayList<Hotel>>>(){}.getType();//new TypeToken<ArrayList<Hotel>>(){}.getType();
-    private static Type userArrayType = new TypeToken<ArrayList<User>>(){}.getType();
+    private static Type hotelArrayType = new TypeToken<ConcurrentHashMap<String, CopyOnWriteArrayList<Hotel>>>(){}.getType();//new TypeToken<ArrayList<Hotel>>(){}.getType();
+    private static Type userArrayType = new TypeToken<SortedMap<String, User>>(){}.getType();
 
     public void start() {
         Gson gson = GsonFactory.get();
@@ -41,9 +51,8 @@ public class Server {
         HotelList hotels = new HotelList();
         UserList users = new UserList();
 
-        //TODO: test if file do not exist
-        try(FileReader hotelReader = new FileReader(HOTEL_PATH);
-            FileReader userReader = new FileReader(USER_PATH))
+        try(BufferedReader hotelReader = new BufferedReader(new FileReader(HOTEL_PATH));
+            BufferedReader userReader = new BufferedReader(new FileReader(USER_PATH)))
         {
             hotels.addAll(gson.fromJson(hotelReader, hotelArrayType));
             users.addAll(gson.fromJson(userReader, userArrayType));
@@ -61,14 +70,31 @@ public class Server {
         ){
             //periodically persists users and hotels data + sort and multicast notification
             Runnable hotelPersister = new Persister<>(gson, HOTEL_PATH, hotels.getHotels());
-            scheduler.scheduleWithFixedDelay(hotelPersister, INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
+            scheduler.scheduleWithFixedDelay(hotelPersister, INIT_DELAY, SERIALIZE_HOTEL_DELAY_MINS, UNIT);
 
-            Runnable userPersister = new Persister<ArrayList<User>>(gson, USER_PATH, users.getUsers());
-            scheduler.scheduleWithFixedDelay(userPersister, INIT_DELAY, SERIALIZE_DELAY_MINS, UNIT);
-            
+            Runnable userPersister = new Persister<>(gson, USER_PATH, users.getUsers());
+            scheduler.scheduleWithFixedDelay(userPersister, INIT_DELAY, SERIALIZE_USER_DELAY_MINS, UNIT);
+
             //This task sort HotelList and send a notification to multicast group 
-            Runnable sorter = new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels, SORT_DELTA_MILLS);
+            Runnable sorter = new MulticastSender(GROUP_ADDRESS, MS_PORT, hotels);
             scheduler.scheduleWithFixedDelay(sorter, INIT_DELAY, SORT_DELTA_MILLS, TimeUnit.MILLISECONDS);
+
+            //Final operation when the server is interrupted: no new client, serialize structures
+            Runtime.getRuntime().addShutdownHook(new Thread()
+            {
+                @Override
+                public void run()
+                {
+                    System.out.println("Shutting down");
+                    pool.close();
+                    pool.shutdown();
+
+                    scheduler.schedule(hotelPersister, INIT_DELAY, UNIT);
+                    scheduler.schedule(userPersister, INIT_DELAY, UNIT);
+                    scheduler.close();
+                    scheduler.shutdown();
+                }
+            });
 
 
             System.out.println("Server is running...");
@@ -88,7 +114,7 @@ public class Server {
 
     public void readConfig(String configPath) {
         try {
-            FileInputStream input = new FileInputStream(configPath);
+            BufferedInputStream input = new BufferedInputStream(new FileInputStream(configPath));
         
             Properties prop = new Properties();
             prop.load(input);
@@ -100,7 +126,8 @@ public class Server {
             USER_PATH = prop.getProperty("USER_PATH");
 
             SORT_DELTA_MILLS = Long.parseLong(prop.getProperty("SORT_DELTA_MILLS"));
-            SERIALIZE_DELAY_MINS = Integer.parseInt(prop.getProperty("SERIALIZE_DELAY_MINS"));
+            SERIALIZE_HOTEL_DELAY_MINS = Integer.parseInt(prop.getProperty("SERIALIZE_HOTEL_DELAY_MINS"));
+            SERIALIZE_USER_DELAY_MINS = Integer.parseInt(prop.getProperty("SERIALIZE_USER_DELAY_MINS"));
             REVIEW_DELTA_DAYS = Long.parseLong(prop.getProperty("REVIEW_DELTA_DAYS"));
         } 
         catch (IOException e) {

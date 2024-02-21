@@ -1,3 +1,4 @@
+package src.server;
 public class ServerMain {
     public static void main(String[] args) {
         String serverConfigPath = "server.properties";

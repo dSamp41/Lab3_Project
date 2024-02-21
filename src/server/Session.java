@@ -1,3 +1,4 @@
+package src.server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,9 +6,16 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import src.structures.Hotel;
+import src.structures.HotelList;
+import src.structures.Ratings;
+import src.structures.User;
+import src.structures.UserList;
 
 public class Session implements Runnable {
     private final long REVIEW_DELTA_DAYS;
@@ -33,10 +41,11 @@ public class Session implements Runnable {
         try(BufferedReader fromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter toClient = new PrintWriter(clientSocket.getOutputStream(), true)) 
         {
-            String inputLine;
+            String inputLine, response;
 
             while((inputLine = fromClient.readLine()) != null){
-                processCommand(inputLine, toClient);
+                response = processCommand(inputLine);
+                toClient.println(response);
             }
         } 
         catch (Exception e) {
@@ -45,12 +54,11 @@ public class Session implements Runnable {
         finally{
             System.out.println("A client left: " + clientSocket);
             if(isLogged) logout();
-            
         }
     }
 
     //read input from in; write output to out
-    private void processCommand(String in, PrintWriter out) throws IOException{
+    private String processCommand(String in) throws IOException{
         String[] input = in.split(" ");
         String op = input[0];
 
@@ -59,102 +67,104 @@ public class Session implements Runnable {
         switch(op) {
             case "register":
                 if(input.length != 3){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
 
                 String pwHash = User.getMD5Hash(input[2]);
                 String registrationStatus = register(input[1], pwHash);
-                out.println(registrationStatus);
+                return registrationStatus;
                 
-                break;
 
             case "login":
                 if(input.length != 3){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
                 
                 String pw_hash = User.getMD5Hash(input[2]);
                 String loginStatus = login(input[1], pw_hash);
-                out.println(loginStatus);
-
-                break;
+                return (loginStatus);
 
             case "logout":
                 if(input.length != 1){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
                 if(!isLogged){
-                    out.println("Not logged in");
-                    break;
+                    return ("Not logged in");
                 }
 
-                out.println(logout());
-                break;
+                String logoutStatus = logout();
+                return logoutStatus;
                 
             case "searchAllHotels":
                 if(input.length != 2){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
                 
-                out.println(searchAllHotels(input[1]));
-                break;
+                return searchAllHotels(input[1]);
 
             case "searchHotel":
-                if(input.length != 5){
-                    out.println("Too much or too little args");
-                    break;
-                }                
-                
-                String name = input[1] + " " + input[2] + " " + input[3];
-                out.println(searchHotel(name, input[4]));
-                
-                break;
+                String[] inputParts = in.split("\"");
+                if(inputParts.length != 3){
+                    return "Too much or too little args";
+                }
+
+                String name = inputParts[1];
+                String city = inputParts[2].replaceFirst(" ", "");
+                return searchHotel(name, city);
             
             case "showBadge":
                 if(input.length != 1){
-                    out.println("Too much or too little args");
-                    break;
+                    return "Too much or too little args";
                 }
                 if(!isLogged){
-                    out.println("You must be logged in to see your badge");
-                    break;
+                    return "You must be logged in to see your badge";
                 }
 
-                out.println(showBadge(username));
-                break;
+                return showBadge(username);
 
             case "insertReview":
-            //insertReview Hotel Roma 1 Roma 5 4 4 4 4
-                if(input.length != 10){
-                    out.println("Too much or too little args");
-                    break;
-                }
-
                 if(!isLogged){
-                    out.println("You must be logged in to insert a review");
-                    break;
+                    return "You must be logged in to insert a review";
                 }
 
-                String hotelName = String.format("%s %s %s", input[1], input[2], input[3]);
-                String hotelCity = input[4];
-                int globalRate = Integer.parseInt(input[5]);
-                int[] ratings = {Integer.parseInt(input[6]), Integer.parseInt(input[7]), Integer.parseInt(input[8]), Integer.parseInt(input[8])};
+                //insertReview "Hotel Roma 1" Roma 5 4 4 4 4
+                String[] parts = in.split("\"");
 
-                out.println(insertReview(hotelName, hotelCity, globalRate, ratings));
-                break;
+                String hotelName = parts[1];
+                String[] cityAndRates = parts[2]
+                    .replaceFirst(" ", "")
+                    .split(" ");
+
+                if(cityAndRates.length != 6){
+                    return "Too much or too little args";
+                }
+
+                String hotelCity = cityAndRates[0];
+                int globalRate = Integer.parseInt(cityAndRates[1]);
+
+                String[] rtngs = {cityAndRates[2], cityAndRates[3], cityAndRates[4], cityAndRates[5]};
+                int[] ratings = Arrays.stream(rtngs)
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+
+                boolean globalRateValid = isValidRate(globalRate);
+                boolean ratingsValid = isValidRate(ratings[0]) && isValidRate(ratings[1]) && isValidRate(ratings[2]) && isValidRate(ratings[3]);
+                boolean allRatesValid = globalRateValid && ratingsValid;
+
+                if(allRatesValid){
+                    return insertReview(hotelName, hotelCity, globalRate, ratings);
+                }
+                else{
+                    return "All rates must be between 0 and 5";
+                }
 
             default:
-                out.printf("Unknown command <%s>\n", op);
-                break;
+                return "Unknown command <" + op + ">";
         }
     }
 
     private String register(String username, String pwdHash){
-        boolean usernameAlreadyTaken = users.searchByUsername(username).size() != 0;
+        boolean usernameAlreadyTaken = users.getByUsername(username).isPresent();
         
         if(usernameAlreadyTaken){
             return "Username already taken";
@@ -169,40 +179,49 @@ public class Session implements Runnable {
         if(isLogged){
             return "Already logged in";
         }
-        List<User> userWithUsername = users.searchByUsername(username);
+        Optional<User> userWithUsername = users.getByUsername(username);
 
-        if(userWithUsername.size() == 0){
+        if(userWithUsername.isEmpty()){
             return "This user doesn't exist";
         }
         
-        User user = userWithUsername.get(0);
-        if(!user.getHash().equals(pwdHash)){    //wrong password
+        User user = userWithUsername.get();
+        if(!user.getHash().equals(pwdHash)){    //right username, wrong password
             return "Wrong password";
         }
         else{
             this.isLogged = true;
             this.username = username;
-            this.currentUser = users.getByName(username);
+            this.currentUser = user;
 
             return "Successfully logged in";
         }
     }
 
     private String logout(){
-        this.isLogged = false;
-        this.username = "";
-
-        return "Logout successful";
+        if(this.isLogged == true){
+            this.isLogged = false;
+            this.username = "";
+            
+            return "Logout successful";
+        }
+        else{
+            return "Not logged in";
+        }
     }
 
     private String searchAllHotels(String city){
-        List<Hotel> hotelsInCity = hotels.searchByCity(city);
+        Optional<List<Hotel>> hotelsInCity = hotels.searchByCity(city);
 
-        if(hotelsInCity.size() == 0){
+        if(hotelsInCity.isEmpty()){
+            return "City not found";
+        }
+
+        if(hotelsInCity.get().size() == 0){
             return "No hotel found in " + city;
         }
 
-        String foundHotels = hotelsInCity.stream()
+        String foundHotels = hotelsInCity.get().stream()
             .map(Hotel::toString)
             .collect(Collectors.joining(""));
         
@@ -210,16 +229,23 @@ public class Session implements Runnable {
     }
 
     private String searchHotel(String name, String city){
-        List<Hotel> results = hotels.searchByName(name, city);
+        Optional<List<Hotel>> results = hotels.searchByName(name, city);
 
-        if(results.size() == 0){
+        if(results.isEmpty()){
+            return "City not found";
+        }
+
+        if(results.get().size() == 0){
             return "Searched hotel not found";
         }
-        return results.get(0).toString().replace("\n", "^");
+        String searchedHotel = results.get().get(0).toString();
+
+        return searchedHotel.replace("\n", "^");
     }
 
     private String showBadge(String username){
-        return users.searchByUsername(username).get(0).getBadge();
+        return users.getByUsername(username).get()
+            .getBadge();
     }
 
     private String insertReview(String hotelName, String hotelCity, float globalRate, int[] ratings){
@@ -232,22 +258,29 @@ public class Session implements Runnable {
         else{
             LocalDate d = lastReviewDate.get();
 
-            if(ChronoUnit.DAYS.between(d, LocalDate.now()) < REVIEW_DELTA_DAYS){
+            if(ChronoUnit.DAYS.between(d, LocalDate.now()) < REVIEW_DELTA_DAYS){    //less then REVIEW_DELTA_DAYS are passed between the old review and the new one
                 return "You already inserted a recent review for this hotel.";
             }
-            currentUser.addReview(hotelName, LocalDate.now());
         }
                 
-        List<Hotel> searchedHotels = hotels.searchByName(hotelName, hotelCity);
-        if(searchedHotels.size() == 0){ 
+        Optional<List<Hotel>> searchedHotels = hotels.searchByName(hotelName, hotelCity);
+        
+        if(searchedHotels.isEmpty() || searchedHotels.get().size() == 0){ 
             return String.format("Hotel not found. The name <%s> or city <%s> is wrong", hotelName, hotelCity);
         }
 
-        //Hotel.insertReview()
-        Hotel selectedHotel = searchedHotels.get(0);
+        //insert review to the hotel
+        Hotel selectedHotel = searchedHotels.get().get(0);
         Ratings r = new Ratings(ratings[0], ratings[1], ratings[2], ratings[3]);
+
         selectedHotel.insertReview(globalRate, r);
+        currentUser.addReview(hotelName, LocalDate.now());
 
         return "The review has been successfully inserted";
     }
+
+    private boolean isValidRate(int n){
+        return (0 <= n) && (n <= 5);
+    }
+
 }
