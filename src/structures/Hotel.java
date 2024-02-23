@@ -30,10 +30,6 @@ public class Hotel {
 
     public float getRate() {return this.rate;}
 
-    private void setRate(float r){
-        this.rate = r;
-    }
-
     public Ratings getRatings() {return this.ratings;}
 
     public float getRatingsAvg(){
@@ -58,7 +54,7 @@ public class Hotel {
 
     public void insertReview(float r, Ratings rtngs){
         float newRate = EMA(this.rate, r);
-        setRate(newRate);
+        this.rate = newRate;
 
         float newCleaning = EMA(ratings.getCleaning(), rtngs.getCleaning()); 
         float newPosition = EMA(ratings.getPosition(), rtngs.getPosition());
