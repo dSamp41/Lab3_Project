@@ -1,5 +1,6 @@
 package src.structures;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Hotel {
     private int id;
@@ -8,7 +9,7 @@ public class Hotel {
     private float rate;
     private Ratings ratings;
 
-    private int numReviews;
+    private AtomicInteger numReviews;
     
     public Hotel(int id, String name, String description, String city, String phone, 
     ArrayList<String> services, float rate, Ratings ratings){
@@ -21,7 +22,7 @@ public class Hotel {
         this.rate = rate;
         this.ratings = ratings;
 
-        this.numReviews = 0;
+        this.numReviews = new AtomicInteger(0);
     }
 
     public String getCity() {return this.city;}
@@ -40,8 +41,6 @@ public class Hotel {
         return this.ratings.getRatingsAvg();
     }
 
-    public int getNumReviews() {return this.numReviews;}
-
     public String toString(){
         String serviziDisp = String.join(", ", this.services);
 
@@ -53,10 +52,10 @@ public class Hotel {
             + "Posizione: " + ratings.getPosition() + "\n"
             + "Servizi: " + ratings.getServices() + "\n"
             + "Qualità: " + ratings.getQuality() + "\n"
-            + "Numero recensioni: " + this.numReviews + "\n\n";
+            + "Numero recensioni: " + this.numReviews.get() + "\n\n";
     }
 
-    public void insertReview(float r, Ratings rtngs){
+    public synchronized void insertReview(float r, Ratings rtngs){
         float newRate = EMA(this.rate, r);
         setRate(newRate);
 
@@ -68,7 +67,7 @@ public class Hotel {
         Ratings newRatings = new Ratings(newCleaning, newPosition, newServices, newQuality);
         this.ratings = newRatings;
 
-        this.numReviews++;
+        this.numReviews.incrementAndGet();
     }
     
     private float EMA(float oldVal, float newVal){
@@ -84,11 +83,11 @@ public class Hotel {
 
     //scoring is a confidence interval [rate +/- 1/numReviews] ==> sorting based on lower bound
     public float getScore(){
-        if(numReviews == 0) return 0;
+        if(numReviews.get() == 0) return 0;
         Float reviewsWeight = Float.parseFloat("1.5");
 
-        float rateScore = rate - reviewsWeight * 1/numReviews;
-        float ratingsScore = ratings.getRatingsAvg() - reviewsWeight * 1/numReviews;
+        float rateScore = rate - reviewsWeight * 1/numReviews.get();
+        float ratingsScore = ratings.getRatingsAvg() - reviewsWeight * 1/numReviews.get();
         
         return (rateScore + ratingsScore)/2;
     }
