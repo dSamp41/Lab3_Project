@@ -14,9 +14,7 @@ public class HotelList {
 
     //Sorting
     /*
-    * city (incr)
-    * rate (decr)
-    * avg ratings (decr)
+    * score (decr)
     * num of services (decr)
     * name (incr)
     */

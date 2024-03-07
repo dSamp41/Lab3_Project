@@ -28,7 +28,7 @@ public class Client {
             MulticastSocket msSocket = new MulticastSocket(MS_PORT)
         ){
             msSocket.joinGroup(InetAddress.getByName(GROUP_ADDRESS));
-            Thread msSniffer = new Thread(new MulticastReceiver(msSocket, consoleLock));
+            Thread msReceiver = new Thread(new MulticastReceiver(msSocket, consoleLock));
 
             String serverRsp, userReq;
             boolean loggedIn = false;
@@ -37,7 +37,7 @@ public class Client {
 
             while(true){
                 synchronized(consoleLock){      //use synchronized to avoid conflict in printing something received in multicast
-                    System.out.println("\nInsert text: ");
+                    System.out.println("\nInsert command: ");
                     userReq = userInput.readLine();
                 }
 
@@ -48,7 +48,7 @@ public class Client {
 
                 if(userReq.equals("exit")){
                     System.out.println("Bye bye...");
-                    System.exit(0);     //closes also msSniffer
+                    System.exit(0);     //closes also msReceiver
                 }
                 
                 if(socket.isClosed()){      //check if the server is down before sending something
@@ -71,19 +71,19 @@ public class Client {
                     loggedIn = true;
 
                     //Start multicast sniffer
-                    msSniffer.start();
-                    System.out.println("Started receive");
+                    msReceiver.start();
+                    System.out.println("You can now receive udpate about new ranking");
                 }
 
                 if(serverRsp.equals("Logout successful")){     //User is logged out; can't receive multicast notifications
                     loggedIn = false;
-                    msSniffer.interrupt();
+                    msReceiver.interrupt();
                 }
             }
             
-            //if client exits without logout, force msSniffer interruption
-            if(msSniffer.isAlive()){
-                msSniffer.interrupt();
+            //if client exits without logout, force msReceiver interruption
+            if(msReceiver.isAlive()){
+                msReceiver.interrupt();
             }
         }
         catch(IOException e){
